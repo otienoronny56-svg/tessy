@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nairobi Institute of Coffee | Professional Barista Training by Esther Ochieng</title>
+    <meta name="description" content="Learn the art and science of coffee from Esther Ochieng, Kenya's premier barista instructor. Professional courses in brewing, roasting, and latte art.">
+    <link rel="stylesheet" href="style.css">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .custom-cursor {
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--primary);
+            background: rgba(49, 33, 23, 0.1);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 20001;
+            transition: transform 0.1s ease-out, width 0.3s, height 0.3s;
+            display: none;
+        }
+        @media (min-width: 1024px) {
+            .custom-cursor { display: block; }
+            body { cursor: none; }
+            a, button, .course-card { cursor: none; }
+        }
+        .scroll-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 4px;
+            background: var(--secondary);
+            z-index: 10001;
+            width: 0%;
+        }
+        .preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--bg-deep);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 20000;
+            transition: opacity 1s ease, visibility 1s;
+        }
+        .preloader.fade-out {
+            opacity: 0;
+            visibility: hidden;
+        }
+        .loader-logo {
+            width: 150px;
+            animation: pulse 2s infinite ease-in-out;
+        }
+        @keyframes pulse {
+            0% { transform: scale(0.9); opacity: 0.5; }
+            50% { transform: scale(1); opacity: 1; }
+            100% { transform: scale(0.9); opacity: 0.5; }
+        }
+    </style>
+</head>
+<body>
+    <div class="preloader" id="preloader">
+        <img src="tess.jpeg" alt="Loading..." class="loader-logo">
+    </div>
+    <div class="custom-cursor" id="cursor"></div>
+    <div class="scroll-progress" id="progress"></div>
+
+    <!-- Navigation -->
+    <nav id="navbar">
+        <div class="container">
+            <a href="index.html" class="logo-container">
+                <img src="tess.jpeg" alt="Nairobi Institute of Coffee Logo">
+            </a>
+            <ul class="nav-links">
+                <li><a href="#hero" class="active">Home</a></li>
+                <li><a href="#about">The Instructor</a></li>
+                <li><a href="#courses">Courses</a></li>
+                <li><a href="blog.html">Blog</a></li>
+                <li><a href="shop.html">Shop</a></li>
+                <li><a href="#contact">Enroll</a></li>
+            </ul>
+            <div class="menu-toggle" id="mobile-menu">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="hero">
+        <div class="hero-bg">
+            <img src="assets/hero_coffee_realistic.png" alt="Specialty Coffee Brewing" style="opacity: 0.15;" class="parallax">
+        </div>
+        <div class="container">
+            <div class="hero-content reveal-up active">
+                <div class="badge-container">
+                    <span class="badge">2022 Champion</span>
+                    <span class="badge">2023 Champion</span>
+                    <span class="badge gold">WBC Representative</span>
+                </div>
+                <span class="section-tag">Nairobi Institute of Coffee</span>
+                <h1>Master the Art <br> of the Bean</h1>
+                <p>Learn from <strong>Esther "Tess" Ochieng</strong>—the 2-Time Kenyan Barista Champion, elite Q-Grader, and certified SCA Trainer. Transform your passion into professional mastery at the Nairobi Institute of Coffee.</p>
+                <div class="hero-btns">
+                    <a href="courses.html" class="btn">Explore Courses</a>
+                </div>
+            </div>
+        </div>
+    </section>    <!-- About Section Teaser -->
+    <section class="section-padding" id="about">
+        <div class="container">
+            <div class="about-grid">
+                <div class="about-image reveal-left">
+                    <img src="assets/tess_ochieng_realistic.png" alt="Esther 'Tess' Ochieng - Professional Barista" class="float-anim">
+                </div>
+                <div class="about-content reveal-right">
+                    <span class="section-tag">Owner & Lead Trainer</span>
+                    <h2 class="section-title">Meet Tess the Barista</h2>
+                    <p><strong>Esther "Tess" Atieno Ochieng</strong> is a titan of East Africa's specialty coffee scene. As a back-to-back <strong>Kenya Barista Champion</strong> and elite Q-Grader, she brings global competitive standards to Nairobi.</p>
+                    <p style="margin-top: 1rem;">Her mission is simple: to professionalize the Kenyan coffee industry through world-class education and technical mastery.</p>
+                    <br>
+                    <a href="about.html" class="btn">Learn More About Tess</a>
+                    <a href="contact.html" class="btn" style="background: transparent; border: 1px solid var(--primary); color: var(--primary); margin-left: 1rem;">Enroll Now</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Academy Preview -->
+    <section class="section-padding" style="background: var(--bg-dark);">
+        <div class="container">
+            <div style="text-align: center; margin-bottom: 5rem;">
+                <span class="section-tag">The Academy</span>
+                <h2 class="section-title">A World-Class Learning Lab</h2>
+                <p style="max-width: 600px; margin: 0 auto; color: var(--text-muted);">From high-end La Marzocco machines to specialized sensory rooms, our facility is designed for professional growth.</p>
+                <br>
+                <a href="about.html#lab" class="read-more" style="justify-content: center;">Tour the Facility <i class="fas fa-arrow-right"></i></a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Courses Teaser Section -->
+    <section class="section-padding" id="courses">
+        <div class="container">
+            <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 5rem;">
+                <div>
+                    <span class="section-tag">Our Programs</span>
+                    <h2 class="section-title" style="margin-bottom: 0;">Professional Certification</h2>
+                </div>
+                <a href="courses.html" class="btn" style="padding: 1rem 2rem; font-size: 0.9rem;">View All Courses</a>
+            </div>
+
+            <div class="courses-grid">
+                <div class="course-card glass reveal-scale" style="transition-delay: 0.1s;">
+                    <div class="course-icon"><i class="fas fa-mug-hot"></i></div>
+                    <h3>Barista Foundations</h3>
+                    <p>Perfect for beginners. Learn machine maintenance, espresso basics, and milk steaming techniques.</p>
+                </div>
+
+                <div class="course-card glass reveal-scale" style="transition-delay: 0.3s;">
+                    <div class="course-icon"><i class="fas fa-wind"></i></div>
+                    <h3>Roasting Science</h3>
+                    <p>Master the heat. Understand the chemical transformations of green coffee during the roasting process.</p>
+                </div>
+
+                <div class="course-card glass reveal-scale" style="transition-delay: 0.5s;">
+                    <div class="course-icon"><i class="fas fa-palette"></i></div>
+                    <h3>Latte Art Masterclass</h3>
+                    <p>The final touch. Advanced techniques in milk pouring to create stunning designs and patterns.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="section-padding" style="background: var(--bg-dark); border-top: 1px solid var(--glass-border); border-bottom: 1px solid var(--glass-border);">
+        <div class="container">
+            <div class="values-grid" style="margin-top: 0;">
+                <div class="value-item reveal-up">
+                    <h2 style="font-size: 3.5rem; color: var(--secondary); margin-bottom: 0.5rem;">500+</h2>
+                    <p style="text-transform: uppercase; letter-spacing: 2px; font-size: 0.7rem; font-weight: 700;">Graduates Trained</p>
+                </div>
+                <div class="value-item reveal-up" style="transition-delay: 0.2s;">
+                    <h2 style="font-size: 3.5rem; color: var(--secondary); margin-bottom: 0.5rem;">2x</h2>
+                    <p style="text-transform: uppercase; letter-spacing: 2px; font-size: 0.7rem; font-weight: 700;">National Titles</p>
+                </div>
+                <div class="value-item reveal-up" style="transition-delay: 0.4s;">
+                    <h2 style="font-size: 3.5rem; color: var(--secondary); margin-bottom: 0.5rem;">10k+</h2>
+                    <p style="text-transform: uppercase; letter-spacing: 2px; font-size: 0.7rem; font-weight: 700;">Cups Mastered</p>
+                </div>
+                <div class="value-item reveal-up" style="transition-delay: 0.6s;">
+                    <h2 style="font-size: 3.5rem; color: var(--secondary); margin-bottom: 0.5rem;">15+</h2>
+                    <p style="text-transform: uppercase; letter-spacing: 2px; font-size: 0.7rem; font-weight: 700;">Cafe Consultancies</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="section-padding" style="background: var(--bg-dark);">
+        <div class="container">
+            <div style="text-align: center; margin-bottom: 3rem;">
+                <span class="section-tag">Success Stories</span>
+                <h2 class="section-title">What Our Graduates Say</h2>
+            </div>
+            
+            <div class="testimonials-grid">
+                <div class="testimonial-item glass reveal-up">
+                    <i class="fas fa-quote-right quote-icon"></i>
+                    <p>"Training with Tess changed my entire perspective on coffee. I went from a home enthusiast to the Head Barista of a major cafe in just months. Her precision is unmatched."</p>
+                    <div class="student-info">
+                        <img src="assets/student_james.png" alt="James Kamau - Kenyan Barista">
+                        <div class="student-details">
+                            <h4>James Kamau</h4>
+                            <span>Head Barista, Java House</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="testimonial-item glass reveal-up" style="transition-delay: 0.2s;">
+                    <i class="fas fa-quote-right quote-icon"></i>
+                    <p>"The sensory lab was a highlight for me. Learning to identify flavor profiles like a Q-Grader gave me the confidence to enter national competitions."</p>
+                    <div class="student-info">
+                        <img src="assets/student_sarah.png" alt="Sarah Wambui - Kenyan Coffee Roaster">
+                        <div class="student-details">
+                            <h4>Sarah Wambui</h4>
+                            <span>Coffee Roaster, Artcaffe</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="testimonial-item glass reveal-up" style="transition-delay: 0.4s;">
+                    <i class="fas fa-quote-right quote-icon"></i>
+                    <p>"Tess is not just a teacher; she's a mentor. The academy provides the perfect balance of science and art. Highly recommended for anyone serious about coffee."</p>
+                    <div class="student-info">
+                        <img src="assets/student_david.png" alt="David Omondi - Kenyan Coffee Shop Owner">
+                        <div class="student-details">
+                            <h4>David Omondi</h4>
+                            <span>Shop Owner, Brewed Awakening</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section (New) -->
+    <section class="section-padding">
+        <div class="container">
+            <div style="text-align: center; margin-bottom: 5rem;">
+                <span class="section-tag">Academy Life</span>
+                <h2 class="section-title">The Student Experience</h2>
+            </div>
+
+            <div class="gallery-grid">
+                <div class="gallery-item wide reveal-scale">
+                    <img src="assets/graduation.png" alt="Student Graduation">
+                </div>
+                <div class="gallery-item tall reveal-scale">
+                    <img src="assets/latte_art_pro.png" alt="Latte Art Training">
+                </div>
+                <div class="gallery-item reveal-scale">
+                    <img src="assets/coffee_training_realistic.png" alt="Sensory Lab">
+                </div>
+                <div class="gallery-item reveal-scale">
+                    <img src="assets/hex_motif.png" alt="Coffee Details">
+                </div>
+                <div class="gallery-item wide reveal-scale">
+                    <img src="assets/hero_coffee_realistic.png" alt="Espresso Extraction">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section (New) -->
+    <section class="section-padding">
+        <div class="container">
+            <div style="text-align: center; margin-bottom: 5rem;">
+                <span class="section-tag">Academy Life</span>
+                <h2 class="section-title">The Student Experience</h2>
+            </div>
+
+            <div class="gallery-grid">
+                <div class="gallery-item wide reveal-scale">
+                    <img src="assets/graduation.png" alt="Student Graduation">
+                </div>
+                <div class="gallery-item tall reveal-scale">
+                    <img src="assets/latte_art_pro.png" alt="Latte Art Training">
+                </div>
+                <div class="gallery-item reveal-scale">
+                    <img src="assets/coffee_training_realistic.png" alt="Sensory Lab">
+                </div>
+                <div class="gallery-item reveal-scale">
+                    <img src="assets/hex_motif.png" alt="Coffee Details">
+                </div>
+                <div class="gallery-item wide reveal-scale">
+                    <img src="assets/hero_coffee_realistic.png" alt="Espresso Extraction">
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="section-padding" id="contact" style="background: var(--bg-dark);">
+        <div class="container">
+            <div class="glass" style="padding: 4rem; border-radius: 20px; text-align: center; max-width: 800px; margin: 0 auto;">
+                <span class="section-tag">Get Started</span>
+                <h2 class="section-title">Begin Your Coffee Journey</h2>
+                <p style="margin-bottom: 3rem; color: var(--text-muted);">Ready to join the next generation of professional baristas? Secure your spot in our upcoming intake.</p>
+                
+                <form id="enroll-form" style="display: grid; gap: 1.5rem; text-align: left;">
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
+                        <input type="text" placeholder="Your Name" style="padding: 1rem; background: rgba(255,255,255,0.05); border: 1px solid var(--glass-border); color: #fff; border-radius: 4px;">
+                        <input type="email" placeholder="Your Email" style="padding: 1rem; background: rgba(255,255,255,0.05); border: 1px solid var(--glass-border); color: #fff; border-radius: 4px;">
+                    </div>
+                    <select style="padding: 1rem; background: rgba(255,255,255,0.05); border: 1px solid var(--glass-border); color: #fff; border-radius: 4px;">
+                        <option value="">Select a Course</option>
+                        <option value="barista">Barista Foundations</option>
+                        <option value="roasting">Roasting Science</option>
+                        <option value="latte">Latte Art Masterclass</option>
+                    </select>
+                    <button type="submit" class="btn" style="width: 100%; cursor: pointer; border: none;">Request Enrollment Details</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Global Partners Section -->
+    <section class="section-padding" style="background: var(--bg-deep); border-bottom: 1px solid var(--glass-border);">
+        <div class="container">
+            <div style="text-align: center; margin-bottom: 4rem;">
+                <span class="section-tag">Trusted By</span>
+                <h2 class="section-title">Global Industry Partners</h2>
+            </div>
+            <div style="display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 4rem; opacity: 0.6; filter: grayscale(1);">
+                <div style="font-size: 1.5rem; font-weight: 800; letter-spacing: -1px; color: var(--text-muted);">LA MARZOCCO</div>
+                <div style="font-size: 1.5rem; font-weight: 800; letter-spacing: -1px; color: var(--text-muted);">MAHLKÖNIG</div>
+                <div style="font-size: 1.5rem; font-weight: 800; letter-spacing: -1px; color: var(--text-muted);">VICTORIA ARDUINO</div>
+                <div style="font-size: 1.5rem; font-weight: 800; letter-spacing: -1px; color: var(--text-muted);">SCA KENYA</div>
+                <div style="font-size: 1.5rem; font-weight: 800; letter-spacing: -1px; color: var(--text-muted);">HARIO</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Blog Teaser Section -->
+    <section class="section-padding">
+        <div class="container">
+            <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 4rem;">
+                <div>
+                    <span class="section-tag">News & Insights</span>
+                    <h2 class="section-title" style="margin-bottom: 0;">Latest from the Lab</h2>
+                </div>
+                <a href="blog.html" class="btn" style="padding: 1rem 2rem; font-size: 0.9rem;">View All Posts</a>
+            </div>
+
+            <div class="blog-grid">
+                <article class="blog-card reveal-up">
+                    <div class="blog-image">
+                        <span class="blog-category">Brewing Tips</span>
+                        <img src="assets/blog_v60.png" alt="V60 Brewing Tips">
+                    </div>
+                    <div class="blog-content">
+                        <span class="blog-date">May 15, 2026</span>
+                        <h3>The Secret to the Perfect V60 Pour-Over</h3>
+                        <p>Mastering the V60 is about more than just pouring water. Learn how water temperature and agitation timing can transform your cup.</p>
+                        <a href="post-v60.html" class="read-more">Read Full Article <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </article>
+
+                <article class="blog-card reveal-up" style="transition-delay: 0.2s;">
+                    <div class="blog-image">
+                        <span class="blog-category">Industry News</span>
+                        <img src="assets/kenyan_coffee_farm_realistic.png" alt="Kenyan Coffee Industry">
+                    </div>
+                    <div class="blog-content">
+                        <span class="blog-date">May 10, 2026</span>
+                        <h3>Why Kenyan Coffee is Trending Globally</h3>
+                        <p>From high altitudes to volcanic soil, explore the unique terroir that makes Kenyan varieties so sought after.</p>
+                        <a href="post-kenyan-coffee.html" class="read-more">Read Full Article <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <footer class="main-footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <img src="tess.jpeg" alt="Logo" style="height: 50px; margin-bottom: 1.5rem; border-radius: 4px;">
+                    <p style="color: var(--text-muted); font-size: 0.9rem;">Elevating the Kenyan coffee experience through world-class education and competition-level training.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">The Instructor</a></li>
+                        <li><a href="courses.html">All Courses</a></li>
+                        <li><a href="contact.html">Enroll Now</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Contact</h4>
+                    <ul class="footer-links">
+                        <li><a href="#"><i class="fas fa-map-marker-alt"></i> Westlands, Nairobi</a></li>
+                        <li><a href="#"><i class="fas fa-envelope"></i> train@nic.com</a></li>
+                        <li><a href="#"><i class="fas fa-phone"></i> +254 700 000 000</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Join the Brew</h4>
+                    <p style="color: var(--text-muted); font-size: 0.85rem;">Get weekly coffee tips and course updates.</p>
+                    <form class="newsletter-form">
+                        <input type="email" placeholder="Email Address">
+                        <button type="submit" class="btn-small">Join</button>
+                    </form>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Nairobi Institute of Coffee. Directed by Esther Ochieng. | <a href="admin-login.html" style="color: var(--text-muted); text-decoration: none; font-size: 0.7rem; opacity: 0.5;">Admin Portal</a></p>
+                <div style="display: flex; gap: 1.5rem;">
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

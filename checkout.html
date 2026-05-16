@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Secure Checkout | Nairobi Institute of Coffee</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script>
+        const SUPABASE_URL = "https://ouuhirckiavcvgqlpriw.supabase.co";
+        const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im91dWhpcmNraWF2Y3ZncWxwcml3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM5MTYyNDUsImV4cCI6MjA4OTQ5MjI0NX0.l5diE9bfcRQo8ZSMsAx-alG89GFifGA11hA059zDhXM";
+        const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+    </script>
+</head>
+<body style="background: var(--bg-deep);">
+    <div class="preloader" id="preloader">
+        <img src="tess.jpeg" alt="Loading..." class="loader-logo">
+    </div>
+
+    <!-- Simple Nav -->
+    <nav style="padding: 2rem 0; border-bottom: 1px solid var(--glass-border);">
+        <div class="container" style="display: flex; justify-content: space-between; align-items: center;">
+            <a href="index.html"><img src="tess.jpeg" alt="Logo" style="height: 40px; border-radius: 4px;"></a>
+            <a href="shop.html" style="color: var(--text-muted); text-decoration: none; font-size: 0.9rem;"><i class="fas fa-arrow-left"></i> Back to Shop</a>
+        </div>
+    </nav>
+
+    <div class="container section-padding">
+        <h1 style="margin-bottom: 3rem;">Secure Checkout</h1>
+        
+        <div class="checkout-grid">
+            <!-- Left: Shipping & Payment -->
+            <div class="checkout-form-container reveal-left active">
+                <h3 style="margin-bottom: 2rem;">1. Delivery Information</h3>
+                <form id="checkout-form">
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 1.5rem;">
+                        <div class="form-group">
+                            <label>Full Name</label>
+                            <input type="text" placeholder="Esther Ochieng" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Phone Number (M-PESA)</label>
+                            <input type="tel" placeholder="0700 000 000" required>
+                        </div>
+                    </div>
+                    <div class="form-group" style="margin-bottom: 1.5rem;">
+                        <label>Delivery Address</label>
+                        <input type="text" placeholder="Street, Apartment, Building" required>
+                    </div>
+                    <div class="form-group" style="margin-bottom: 3rem;">
+                        <label>Nearest Landmark</label>
+                        <input type="text" placeholder="e.g. Near Sarit Centre">
+                    </div>
+
+                    <h3 style="margin-bottom: 2rem;">2. Payment Method</h3>
+                    <div class="payment-options">
+                        <div class="payment-option active">
+                            <div style="width: 24px; height: 24px; border: 2px solid var(--secondary); border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+                                <div style="width: 12px; height: 12px; background: var(--secondary); border-radius: 50%;"></div>
+                            </div>
+                            <div style="flex: 1;">
+                                <h4 style="margin: 0;">M-PESA Express</h4>
+                                <p style="font-size: 0.8rem; color: var(--text-muted); margin: 0;">Receive a prompt on your phone</p>
+                            </div>
+                            <i class="fas fa-mobile-alt" style="color: #4CAF50; font-size: 1.5rem;"></i>
+                        </div>
+                        <div class="payment-option" style="opacity: 0.5; cursor: not-allowed;">
+                            <div style="width: 24px; height: 24px; border: 2px solid var(--glass-border); border-radius: 50%;"></div>
+                            <div style="flex: 1;">
+                                <h4 style="margin: 0;">Credit / Debit Card</h4>
+                                <p style="font-size: 0.8rem; color: var(--text-muted); margin: 0;">Coming soon</p>
+                            </div>
+                            <i class="fas fa-credit-card" style="color: var(--text-muted); font-size: 1.5rem;"></i>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn" style="width: 100%; margin-top: 3rem; padding: 1.5rem;">Place Order & Pay</button>
+                </form>
+            </div>
+
+            <!-- Right: Order Summary -->
+            <div class="order-summary-container reveal-right active">
+                <h3 style="margin-bottom: 2rem;">Order Summary</h3>
+                <div id="checkout-items" style="margin-bottom: 2rem;">
+                    <!-- Items from LocalStorage -->
+                </div>
+                <div style="border-top: 1px solid var(--glass-border); padding-top: 1.5rem;">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 1rem; color: var(--text-muted);">
+                        <span>Subtotal</span>
+                        <span id="summary-subtotal">KES 0</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 1.5rem; color: var(--text-muted);">
+                        <span>Delivery Fee</span>
+                        <span>KES 250</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; font-size: 1.5rem; font-weight: 800; color: var(--primary);">
+                        <span>Total</span>
+                        <span id="summary-total">KES 0</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Success Modal -->
+    <div id="success-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 3000; align-items: center; justify-content: center; text-align: center;">
+        <div class="glass" style="padding: 5rem; border-radius: 20px; max-width: 500px;">
+            <div style="width: 80px; height: 80px; background: #4CAF50; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 2rem;">
+                <i class="fas fa-check" style="color: white; font-size: 2.5rem;"></i>
+            </div>
+            <h2 style="margin-bottom: 1rem;">Order Placed!</h2>
+            <p style="color: var(--text-muted); margin-bottom: 2rem;">Thank you for your order. We've sent a payment request to your phone. Your order ID is <strong id="order-id">#NIC-8829</strong>.</p>
+            <a href="index.html" class="btn">Return Home</a>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        const cart = JSON.parse(localStorage.getItem('nic_cart')) || [];
+        const itemsContainer = document.getElementById('checkout-items');
+        const subtotalEl = document.getElementById('summary-subtotal');
+        const totalEl = document.getElementById('summary-total');
+
+        function loadSummary() {
+            if (cart.length === 0) {
+                window.location.href = 'shop.html';
+                return;
+            }
+
+            let html = '';
+            let subtotal = 0;
+            cart.forEach(item => {
+                subtotal += item.price;
+                html += `
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 1.5rem; align-items: center;">
+                        <div style="display: flex; gap: 1rem; align-items: center;">
+                            <img src="${item.img}" style="width: 50px; height: 50px; border-radius: 8px; object-fit: cover;">
+                            <span style="font-size: 0.9rem;">${item.name}</span>
+                        </div>
+                        <span style="font-weight: 700;">KES ${item.price.toLocaleString()}</span>
+                    </div>
+                `;
+            });
+
+            itemsContainer.innerHTML = html;
+            subtotalEl.innerText = `KES ${subtotal.toLocaleString()}`;
+            totalEl.innerText = `KES ${(subtotal + 250).toLocaleString()}`;
+        }
+
+        document.getElementById('checkout-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const btn = e.target.querySelector('button');
+            btn.innerText = 'Processing Order...';
+            btn.disabled = true;
+            
+            // Gather Form Data
+            const name = e.target.querySelector('input[type="text"]').value;
+            const phone = e.target.querySelector('input[type="tel"]').value;
+            const address = e.target.querySelectorAll('input[type="text"]')[1].value;
+            const landmark = e.target.querySelectorAll('input[type="text"]')[2].value;
+            const orderId = '#NIC-' + Math.floor(1000 + Math.random() * 9000);
+
+            let subtotal = 0;
+            cart.forEach(item => subtotal += item.price);
+            const total = subtotal + 250;
+
+            // 1. Save to Supabase (sale_records)
+            const { error } = await _supabase.from('sale_records').insert([
+                {
+                    buyer_alias: name,
+                    contact_digit: phone,
+                    drop_location: address,
+                    cart_blob: cart,
+                    grand_sum: total,
+                    delivery_status: 'queued'
+                }
+            ]);
+
+            if (error) {
+                console.error('Order saving error:', error);
+                alert('There was an issue saving your order details. Please try again.');
+                btn.innerText = 'Place Order & Pay';
+                btn.disabled = false;
+                return;
+            }
+
+            // 2. Format WhatsApp Message
+            let message = `*New Order from Nairobi Institute of Coffee*%0A`;
+            message += `--------------------------------%0A`;
+            message += `*Order ID:* ${orderId}%0A`;
+            message += `*Customer:* ${name}%0A`;
+            message += `*Phone:* ${phone}%0A`;
+            message += `*Address:* ${address}%0A`;
+            if(landmark) message += `*Landmark:* ${landmark}%0A`;
+            message += `--------------------------------%0A`;
+            message += `*Items:*%0A`;
+            cart.forEach(item => message += `- ${item.name} (KES ${item.price.toLocaleString()})%0A`);
+            message += `--------------------------------%0A`;
+            message += `*Total Amount:* KES ${total.toLocaleString()}%0A`;
+            message += `--------------------------------%0A`;
+            message += `_Please confirm my order and send the M-PESA payment prompt._`;
+
+            const whatsappNumber = "254723913325";
+            const waUrl = `https://wa.me/${whatsappNumber}?text=${message}`;
+            
+            // Show Success Modal
+            document.getElementById('order-id').innerText = orderId;
+            document.getElementById('success-modal').style.display = 'flex';
+            
+            // Clear Cart
+            localStorage.removeItem('nic_cart');
+
+            // Delay redirect
+            setTimeout(() => {
+                window.open(waUrl, '_blank');
+            }, 2000);
+        });
+
+        loadSummary();
+    </script>
+</body>
+</html>

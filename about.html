@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Instructor | Nairobi Institute of Coffee</title>
+    <meta name="description" content="Meet Esther 'Tess' Ochieng, 2-Time Kenyan Barista Champion and Lead Trainer at Nairobi Institute of Coffee.">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .custom-cursor {
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--primary);
+            background: rgba(49, 33, 23, 0.1);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 20001;
+            transition: transform 0.1s ease-out, width 0.3s, height 0.3s;
+            display: none;
+        }
+        @media (min-width: 1024px) {
+            .custom-cursor { display: block; }
+            body { cursor: none; }
+            a, button, .course-card { cursor: none; }
+        }
+        .scroll-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 4px;
+            background: var(--secondary);
+            z-index: 10001;
+            width: 0%;
+        }
+        .preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--bg-deep);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 20000;
+            transition: opacity 1s ease, visibility 1s;
+        }
+        .preloader.fade-out {
+            opacity: 0;
+            visibility: hidden;
+        }
+        .loader-logo {
+            width: 150px;
+            animation: pulse 2s infinite ease-in-out;
+        }
+        @keyframes pulse {
+            0% { transform: scale(0.9); opacity: 0.5; }
+            50% { transform: scale(1); opacity: 1; }
+            100% { transform: scale(0.9); opacity: 0.5; }
+        }
+    </style>
+</head>
+<body>
+    <div class="preloader" id="preloader">
+        <img src="tess.jpeg" alt="Loading..." class="loader-logo">
+    </div>
+    <div class="custom-cursor" id="cursor"></div>
+    <div class="scroll-progress" id="progress"></div>
+
+    <!-- Navigation -->
+    <nav id="navbar">
+        <div class="container">
+            <a href="index.html" class="logo-container">
+                <img src="tess.jpeg" alt="Nairobi Institute of Coffee Logo">
+            </a>
+            <div class="menu-toggle" id="mobile-menu">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html" class="active">The Instructor</a></li>
+                <li><a href="courses.html">Courses</a></li>
+                <li><a href="blog.html">Blog</a></li>
+                <li><a href="shop.html">Shop</a></li>
+                <li><a href="contact.html">Enroll</a></li>
+            </ul>
+            <div class="menu-toggle" id="mobile-menu">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="hero" style="min-height: 40vh; padding-top: 160px; background: var(--bg-dark);">
+        <div class="container">
+            <div class="hero-content reveal-up active">
+                <span class="section-tag">Leadership</span>
+                <h1 style="font-size: 3.5rem;">The Champion's <br> Vision</h1>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section (Esther Ochieng) -->
+    <section class="section-padding">
+        <div class="container">
+            <div class="about-grid">
+                <div class="about-image reveal-left">
+                    <img src="assets/tess_ochieng_realistic.png" alt="Esther 'Tess' Ochieng - Professional Barista" class="float-anim">
+                </div>
+                <div class="about-content reveal-right">
+                    <span class="section-tag">Owner & Lead Trainer</span>
+                    <h2 class="section-title">Meet Tess the Barista</h2>
+                    <p><strong>Esther "Tess" Atieno Ochieng</strong> is a titan of East Africa's specialty coffee scene. As a back-to-back <strong>Kenya Barista Champion (2022 & 2023)</strong> and World Barista Championship representative, she brings global competitive standards to the heart of Nairobi.</p>
+                    <br>
+                    <p>Beyond the championships, Tess is one of Africa’s few female <strong>Q-Graders</strong>—an elite certification for coffee quality evaluation. As a certified <strong>SCA (Specialty Coffee Association) Trainer</strong> and former Head Barista for Moyee Coffee / FairChain Kenya, she has dedicated her career to consulting, masterclasses, and elevating the next generation of coffee professionals.</p>
+                    <br>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 2rem;">
+                        <div style="display: flex; align-items: center; gap: 0.5rem; font-size: 0.85rem; font-weight: 600;">
+                            <i class="fas fa-certificate" style="color: var(--secondary);"></i> Q-Grader Certified
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 0.5rem; font-size: 0.85rem; font-weight: 600;">
+                            <i class="fas fa-graduation-cap" style="color: var(--secondary);"></i> SCA Trainer
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 0.5rem; font-size: 0.85rem; font-weight: 600;">
+                            <i class="fas fa-trophy" style="color: var(--secondary);"></i> 2x National Champion
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 0.5rem; font-size: 0.85rem; font-weight: 600;">
+                            <i class="fas fa-globe" style="color: var(--secondary);"></i> WBC Representative
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Career Timeline Section -->
+    <section class="section-padding" style="background: var(--bg-deep); border-top: 1px solid var(--glass-border); border-bottom: 1px solid var(--glass-border);">
+        <div class="container">
+            <div style="text-align: center; margin-bottom: 5rem;">
+                <span class="section-tag">A Decade of Excellence</span>
+                <h2 class="section-title">The Journey of a Champion</h2>
+            </div>
+            
+            <div style="position: relative; max-width: 900px; margin: 0 auto; padding-left: 2rem; border-left: 1px solid var(--glass-border);">
+                <div class="reveal-up" style="margin-bottom: 4rem; position: relative;">
+                    <div style="position: absolute; left: -2.5rem; top: 0; width: 1rem; height: 1rem; background: var(--secondary); border-radius: 50%;"></div>
+                    <h4 style="color: var(--secondary); margin-bottom: 0.5rem;">2015 — The Beginning</h4>
+                    <p style="color: var(--text-muted);">Tess starts her career as a junior barista, developing a deep obsession with extraction science and latte art precision.</p>
+                </div>
+                <div class="reveal-up" style="margin-bottom: 4rem; position: relative; transition-delay: 0.2s;">
+                    <div style="position: absolute; left: -2.5rem; top: 0; width: 1rem; height: 1rem; background: var(--secondary); border-radius: 50%;"></div>
+                    <h4 style="color: var(--secondary); margin-bottom: 0.5rem;">2018 — Q-Grader Certification</h4>
+                    <p style="color: var(--text-muted);">Becomes one of the youngest female Q-Graders in Africa, mastering the sensory evaluation of green and roasted coffee.</p>
+                </div>
+                <div class="reveal-up" style="margin-bottom: 4rem; position: relative; transition-delay: 0.4s;">
+                    <div style="position: absolute; left: -2.5rem; top: 0; width: 1rem; height: 1rem; background: var(--secondary); border-radius: 50%;"></div>
+                    <h4 style="color: var(--secondary); margin-bottom: 0.5rem;">2022-23 — The Championship Years</h4>
+                    <p style="color: var(--text-muted);">Wins back-to-back Kenya Barista Championships and represents Kenya on the global stage at the WBC.</p>
+                </div>
+                <div class="reveal-up" style="position: relative; transition-delay: 0.6s;">
+                    <div style="position: absolute; left: -2.5rem; top: 0; width: 1rem; height: 1rem; background: var(--secondary); border-radius: 50%;"></div>
+                    <h4 style="color: var(--secondary); margin-bottom: 0.5rem;">2024 — Founding the Institute</h4>
+                    <p style="color: var(--text-muted);">Establishes the Nairobi Institute of Coffee to formalize specialty coffee education in the region.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- The 3 Pillars Section -->
+    <section class="section-padding">
+        <div class="container">
+            <div style="text-align: center; margin-bottom: 5rem;">
+                <span class="section-tag">Our Philosophy</span>
+                <h2 class="section-title">The 3 Pillars of Excellence</h2>
+            </div>
+            
+            <div class="values-grid">
+                <div class="value-item reveal-up">
+                    <div style="font-size: 3rem; color: var(--secondary); margin-bottom: 1.5rem;"><i class="fas fa-atom"></i></div>
+                    <h3>Technical Precision</h3>
+                    <p>We believe coffee is a science. From water chemistry to roast curves, every variable is measured and mastered.</p>
+                </div>
+                <div class="value-item reveal-up" style="transition-delay: 0.2s;">
+                    <div style="font-size: 3rem; color: var(--secondary); margin-bottom: 1.5rem;"><i class="fas fa-fire"></i></div>
+                    <h3>Cultural Passion</h3>
+                    <p>Kenyan coffee is our heritage. We infuse every lesson with the stories of the farmers who make this possible.</p>
+                </div>
+                <div class="value-item reveal-up" style="transition-delay: 0.4s;">
+                    <div style="font-size: 3rem; color: var(--secondary); margin-bottom: 1.5rem;"><i class="fas fa-certificate"></i></div>
+                    <h3>Global Ambition</h3>
+                    <p>Our students are trained to work anywhere in the world, from the local roastery to the world-class specialty cafe.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+            <!-- School Philosophy Section -->
+            <div class="values-grid">
+                <div class="value-item reveal-up" style="transition-delay: 0.1s;">
+                    <div class="value-icon"><i class="fas fa-microscope"></i></div>
+                    <h3>Precision Science</h3>
+                    <p>We don't just brew; we analyze. Master TDS, extraction yields, and the chemistry of roasting.</p>
+                </div>
+                <div class="value-item reveal-up" style="transition-delay: 0.3s;">
+                    <div class="value-icon"><i class="fas fa-hand-holding-heart"></i></div>
+                    <h3>Ethical Sourcing</h3>
+                    <p>Learn the story behind the bean. We focus on fair-trade practices and sustainable Kenyan farming.</p>
+                </div>
+                <div class="value-item reveal-up" style="transition-delay: 0.5s;">
+                    <div class="value-icon"><i class="fas fa-award"></i></div>
+                    <h3>Global Standards</h3>
+                    <p>Our curriculum is built on SCA guidelines, preparing you for international barista excellence.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="main-footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <img src="tess.jpeg" alt="Logo" style="height: 50px; margin-bottom: 1.5rem; border-radius: 4px;">
+                    <p style="color: var(--text-muted); font-size: 0.9rem;">Elevating the Kenyan coffee experience through world-class education and competition-level training.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">The Instructor</a></li>
+                        <li><a href="courses.html">All Courses</a></li>
+                        <li><a href="contact.html">Enroll Now</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Contact</h4>
+                    <ul class="footer-links">
+                        <li><a href="#"><i class="fas fa-map-marker-alt"></i> Westlands, Nairobi</a></li>
+                        <li><a href="#"><i class="fas fa-envelope"></i> train@nic.com</a></li>
+                        <li><a href="#"><i class="fas fa-phone"></i> +254 700 000 000</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Join the Brew</h4>
+                    <p style="color: var(--text-muted); font-size: 0.85rem;">Get weekly coffee tips and course updates.</p>
+                    <form class="newsletter-form">
+                        <input type="email" placeholder="Email Address">
+                        <button type="submit" class="btn-small">Join</button>
+                    </form>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Nairobi Institute of Coffee. Directed by Esther Ochieng.</p>
+                <div style="display: flex; gap: 1.5rem;">
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

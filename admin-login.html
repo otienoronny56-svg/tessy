@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login | Nairobi Institute of Coffee</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            background: radial-gradient(circle at center, #1a1512 0%, #0a0807 100%);
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .login-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 4rem;
+            border-radius: 30px;
+            width: 100%;
+            max-width: 450px;
+            text-align: center;
+            box-shadow: 0 50px 100px rgba(0,0,0,0.5);
+        }
+        .login-card img {
+            height: 60px;
+            border-radius: 10px;
+            margin-bottom: 2rem;
+        }
+        .login-form {
+            text-align: left;
+            margin-top: 2rem;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .form-group input {
+            width: 100%;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            padding: 1.2rem;
+            border-radius: 12px;
+            color: #fff;
+            margin-bottom: 1.5rem;
+            outline: none;
+            transition: var(--transition);
+        }
+        .form-group input:focus {
+            border-color: var(--secondary);
+            background: rgba(255,255,255,0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="login-card reveal-up active">
+        <img src="tess.jpeg" alt="Logo">
+        <h2 style="margin-bottom: 0.5rem;">Admin Portal</h2>
+        <p style="color: var(--text-muted); font-size: 0.9rem;">Authorized Access Only</p>
+
+        <form class="login-form" id="login-form">
+            <div class="form-group">
+                <label>Username</label>
+                <input type="text" placeholder="esther_admin" id="username" required>
+            </div>
+            <div class="form-group">
+                <label>Password</label>
+                <input type="password" placeholder="••••••••" id="password" required>
+            </div>
+            <button type="submit" class="btn" style="width: 100%; padding: 1.2rem;">Sign In to Dashboard</button>
+        </form>
+        
+        <p style="margin-top: 2rem; font-size: 0.7rem; color: var(--text-muted);">
+            Forgotten your credentials? Contact Systems by Ronny.
+        </p>
+    </div>
+
+    <script>
+        document.getElementById('login-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const user = document.getElementById('username').value;
+            const pass = document.getElementById('password').value;
+
+            // Simple demo check
+            if (user === 'admin' && pass === 'coffee254') {
+                localStorage.setItem('nic_admin_auth', 'true');
+                window.location.href = 'admin-dashboard.html';
+            } else {
+                alert('Invalid Credentials. Access Denied.');
+            }
+        });
+    </script>
+</body>
+</html>

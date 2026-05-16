@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Courses & Training | Nairobi Institute of Coffee</title>
+    <meta name="description" content="Professional barista training, roasting science, and latte art masterclasses in Nairobi. Certified by SCA guidelines.">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .custom-cursor {
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--primary);
+            background: rgba(49, 33, 23, 0.1);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 20001;
+            transition: transform 0.1s ease-out, width 0.3s, height 0.3s;
+            display: none;
+        }
+        @media (min-width: 1024px) {
+            .custom-cursor { display: block; }
+            body { cursor: none; }
+            a, button, .course-card { cursor: none; }
+        }
+        .scroll-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 4px;
+            background: var(--secondary);
+            z-index: 10001;
+            width: 0%;
+        }
+        .preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--bg-deep);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 20000;
+            transition: opacity 1s ease, visibility 1s;
+        }
+        .preloader.fade-out {
+            opacity: 0;
+            visibility: hidden;
+        }
+        .loader-logo {
+            width: 150px;
+            animation: pulse 2s infinite ease-in-out;
+        }
+        @keyframes pulse {
+            0% { transform: scale(0.9); opacity: 0.5; }
+            50% { transform: scale(1); opacity: 1; }
+            100% { transform: scale(0.9); opacity: 0.5; }
+        }
+    </style>
+</head>
+<body>
+    <div class="preloader" id="preloader">
+        <img src="tess.jpeg" alt="Loading..." class="loader-logo">
+    </div>
+    <div class="custom-cursor" id="cursor"></div>
+    <div class="scroll-progress" id="progress"></div>
+
+    <!-- Navigation -->
+    <nav id="navbar">
+        <div class="container">
+            <a href="index.html" class="logo-container">
+                <img src="tess.jpeg" alt="Nairobi Institute of Coffee Logo">
+            </a>
+            <div class="menu-toggle" id="mobile-menu">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">The Instructor</a></li>
+                <li><a href="courses.html" class="active">Courses</a></li>
+                <li><a href="blog.html">Blog</a></li>
+                <li><a href="shop.html">Shop</a></li>
+                <li><a href="contact.html">Enroll</a></li>
+            </ul>
+            <div class="menu-toggle" id="mobile-menu">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="hero" style="min-height: 40vh; padding-top: 160px; background: var(--bg-dark);">
+        <div class="container">
+            <div class="hero-content reveal-up active">
+                <span class="section-tag">Programs</span>
+                <h1 style="font-size: 3.5rem;">Professional <br> Certification</h1>
+            </div>
+        </div>
+    </section>
+
+    <!-- Courses Section -->
+    <section class="section-padding">
+        <div class="container">
+            <div class="courses-grid">
+                <div class="course-card glass reveal-scale" style="transition-delay: 0.1s;">
+                    <div class="course-icon"><i class="fas fa-mug-hot"></i></div>
+                    <div class="course-meta">
+                        <span class="meta-badge">5 Days</span>
+                        <span class="meta-badge">SCA Standard</span>
+                    </div>
+                    <h3>Barista Foundations</h3>
+                    <p>Perfect for beginners. Learn machine maintenance, espresso basics, and milk steaming techniques.</p>
+                    <div class="course-price">KES 25,000</div>
+                    <a href="contact.html" class="btn">Enroll Now</a>
+                </div>
+
+                <div class="course-card glass reveal-scale" style="transition-delay: 0.3s;">
+                    <div class="course-icon"><i class="fas fa-wind"></i></div>
+                    <div class="course-meta">
+                        <span class="meta-badge">3 Days</span>
+                        <span class="meta-badge">Professional</span>
+                    </div>
+                    <h3>Roasting Science</h3>
+                    <p>Master the heat. Understand the chemical transformations of green coffee during the roasting process.</p>
+                    <div class="course-price">KES 35,000</div>
+                    <a href="contact.html" class="btn">Enroll Now</a>
+                </div>
+
+                <div class="course-card glass reveal-scale" style="transition-delay: 0.5s;">
+                    <div class="course-icon"><i class="fas fa-palette"></i></div>
+                    <div class="course-meta">
+                        <span class="meta-badge">2 Days</span>
+                        <span class="meta-badge">Mastery</span>
+                    </div>
+                    <h3>Latte Art Masterclass</h3>
+                    <p>The final touch. Advanced techniques in milk pouring to create stunning designs and patterns.</p>
+                    <div class="course-price">KES 15,000</div>
+                    <a href="contact.html" class="btn">Enroll Now</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- The Barista Lab Section -->
+    <section class="section-padding" style="background: var(--bg-dark); position: relative; overflow: hidden;">
+        <div class="container">
+            <div class="about-grid">
+                <div class="about-content reveal-left">
+                    <span class="section-tag">The Academy Environment</span>
+                    <h2 class="section-title">The Barista Lab</h2>
+                    <p>Our school is equipped with industry-leading technology. From <strong>La Marzocco</strong> espresso machines to <strong>Mahlkönig</strong> precision grinders, you will train on the same gear used by the world's best cafes.</p>
+                    <br>
+                    <ul style="display: grid; gap: 1rem;">
+                        <li style="display: flex; align-items: center; gap: 10px;"><i class="fas fa-check-circle" style="color: var(--secondary);"></i> Individual Station Training</li>
+                        <li style="display: flex; align-items: center; gap: 10px;"><i class="fas fa-check-circle" style="color: var(--secondary);"></i> Specialized Sensory Room</li>
+                        <li style="display: flex; align-items: center; gap: 10px;"><i class="fas fa-check-circle" style="color: var(--secondary);"></i> Pro Roasting Laboratory</li>
+                    </ul>
+                </div>
+                <div class="about-image reveal-right">
+                    <div class="hex-border">
+                        <div class="hex-container" style="height: 450px;">
+                            <img src="assets/equipment.png" alt="High-end Coffee Equipment">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Process Section -->
+    <section class="section-padding">
+        <div class="container">
+            <div style="text-align: center; margin-bottom: 5rem;">
+                <span class="section-tag">The Curriculum</span>
+                <h2 class="section-title">Beyond the Cup</h2>
+            </div>
+
+            <div class="process-step">
+                <div class="process-image reveal-left">
+                    <img src="assets/kenyan_coffee_farm_realistic.png" alt="Kenyan Coffee Farm">
+                </div>
+                <div class="process-content reveal-right">
+                    <span class="section-tag">Phase 01</span>
+                    <h3>Origin & Harvesting</h3>
+                    <p>Understanding the terroir of Kenyan coffee. We teach you how high altitude and volcanic soil create the world's most sought-after beans.</p>
+                </div>
+            </div>
+
+            <div class="process-step">
+                <div class="process-image reveal">
+                    <img src="assets/coffee_close_up.png" alt="Coffee Extraction">
+                </div>
+                <div class="process-content reveal">
+                    <span class="section-tag">Phase 02</span>
+                    <h3>Precision Extraction</h3>
+                    <p>Master the variables of espresso. Learn how grind size, temperature, and pressure work together to unlock the perfect flavor profile.</p>
+                </div>
+            </div>
+
+            <div class="process-step">
+                <div class="process-image reveal-scale">
+                    <img src="assets/coffee_training_realistic.png" alt="Barista Training">
+                </div>
+                <div class="process-content reveal-up">
+                    <span class="section-tag">Phase 03</span>
+                    <h3>Sensory Mastery</h3>
+                    <p>Develop your palate. Our cupping sessions help you identify notes of citrus, berry, and chocolate that define premium Kenyan specialty coffee.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- What's in the Box Section -->
+    <section class="section-padding" style="background: var(--bg-deep); border-top: 1px solid var(--glass-border); border-bottom: 1px solid var(--glass-border);">
+        <div class="container">
+            <div style="text-align: center; margin-bottom: 5rem;">
+                <span class="section-tag">Student Benefits</span>
+                <h2 class="section-title">What's in the Kit?</h2>
+                <p style="max-width: 600px; margin: 0 auto; color: var(--text-muted);">Every professional student at the Nairobi Institute of Coffee receives a complete toolkit to start their journey.</p>
+            </div>
+            
+            <div class="values-grid">
+                <div class="value-item reveal-up">
+                    <div style="font-size: 2.5rem; color: var(--secondary); margin-bottom: 1rem;"><i class="fas fa-tshirt"></i></div>
+                    <h4>Branded Apron</h4>
+                    <p>Professional-grade dark canvas apron with NIC branding.</p>
+                </div>
+                <div class="value-item reveal-up" style="transition-delay: 0.2s;">
+                    <div style="font-size: 2.5rem; color: var(--secondary); margin-bottom: 1rem;"><i class="fas fa-book-open"></i></div>
+                    <h4>Academy Manual</h4>
+                    <p>Exclusive 150-page guide covering everything from farm to cup.</p>
+                </div>
+                <div class="value-item reveal-up" style="transition-delay: 0.4s;">
+                    <div style="font-size: 2.5rem; color: var(--secondary); margin-bottom: 1rem;"><i class="fas fa-stamp"></i></div>
+                    <h4>SCA Certification</h4>
+                    <p>Internationally recognized diploma upon successful completion.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Career Pathway Section -->
+    <section class="section-padding">
+        <div class="container">
+            <div class="about-grid">
+                <div class="about-image reveal-left">
+                    <div style="background: var(--bg-dark); padding: 4rem; border-radius: 20px; border: 1px solid var(--glass-border);">
+                        <div style="font-size: 4rem; color: var(--secondary); margin-bottom: 2rem;"><i class="fas fa-rocket"></i></div>
+                        <h2>Your Career <br> Starts Here</h2>
+                        <p style="color: var(--text-muted); margin-top: 1rem;">We don't just train you to brew; we train you to lead. Our graduates work in the most prestigious cafes globally.</p>
+                    </div>
+                </div>
+                <div class="about-content reveal-right">
+                    <span class="section-tag">Job Placement</span>
+                    <h2 class="section-title">The Career Pathway</h2>
+                    <ul style="display: grid; gap: 2rem;">
+                        <li style="display: flex; gap: 1.5rem;">
+                            <div style="font-weight: 800; color: var(--secondary); font-size: 1.5rem;">01</div>
+                            <div>
+                                <h4>Expert Training</h4>
+                                <p style="font-size: 0.9rem; color: var(--text-muted);">Master the fundamentals under a 2x National Champion.</p>
+                            </div>
+                        </li>
+                        <li style="display: flex; gap: 1.5rem;">
+                            <div style="font-weight: 800; color: var(--secondary); font-size: 1.5rem;">02</div>
+                            <div>
+                                <h4>Internship Program</h4>
+                                <p style="font-size: 0.9rem; color: var(--text-muted);">Get hands-on experience in our partner cafes in Nairobi.</p>
+                            </div>
+                        </li>
+                        <li style="display: flex; gap: 1.5rem;">
+                            <div style="font-weight: 800; color: var(--secondary); font-size: 1.5rem;">03</div>
+                            <div>
+                                <h4>Global Placement</h4>
+                                <p style="font-size: 0.9rem; color: var(--text-muted);">Access our network of international specialty coffee shops.</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section... -->
+    <section class="section-padding" style="background: var(--bg-deep);">
+        <div class="container">
+            <div style="text-align: center; margin-bottom: 3rem;">
+                <span class="section-tag">Common Questions</span>
+                <h2 class="section-title">Everything You Need to Know</h2>
+            </div>
+            
+            <div class="faq-section">
+                <div class="faq-item reveal-up">
+                    <div class="faq-header">
+                        <h4>Do I need prior experience to join?</h4>
+                        <i class="fas fa-chevron-down faq-icon"></i>
+                    </div>
+                    <div class="faq-content">
+                        <div class="faq-inner">
+                            No prior experience is necessary for our Barista Foundations course. We welcome enthusiasts, career-switchers, and beginners who are passionate about coffee.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-item reveal-up" style="transition-delay: 0.1s;">
+                    <div class="faq-header">
+                        <h4>What kind of certification do I receive?</h4>
+                        <i class="fas fa-chevron-down faq-icon"></i>
+                    </div>
+                    <div class="faq-content">
+                        <div class="faq-inner">
+                            Upon completion, you receive a professional certificate from the Nairobi Institute of Coffee, signed by Esther Ochieng. Our curriculum is aligned with global SCA (Specialty Coffee Association) standards.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-item reveal-up" style="transition-delay: 0.2s;">
+                    <div class="faq-header">
+                        <h4>Are the classes practical or theoretical?</h4>
+                        <i class="fas fa-chevron-down faq-icon"></i>
+                    </div>
+                    <div class="faq-content">
+                        <div class="faq-inner">
+                            Our training is 80% practical. You will spend the majority of your time behind a machine or in the roasting lab to ensure you gain real-world muscle memory.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-item reveal-up" style="transition-delay: 0.3s;">
+                    <div class="faq-header">
+                        <h4>Can I visit the academy before enrolling?</h4>
+                        <i class="fas fa-chevron-down faq-icon"></i>
+                    </div>
+                    <div class="faq-content">
+                        <div class="faq-inner">
+                            Absolutely! We encourage potential students to book a tour of our Barista Lab in Westlands to see the equipment and meet the trainers.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="main-footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <img src="tess.jpeg" alt="Logo" style="height: 50px; margin-bottom: 1.5rem; border-radius: 4px;">
+                    <p style="color: var(--text-muted); font-size: 0.9rem;">Elevating the Kenyan coffee experience through world-class education and competition-level training.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">The Instructor</a></li>
+                        <li><a href="courses.html">All Courses</a></li>
+                        <li><a href="contact.html">Enroll Now</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Contact</h4>
+                    <ul class="footer-links">
+                        <li><a href="#"><i class="fas fa-map-marker-alt"></i> Westlands, Nairobi</a></li>
+                        <li><a href="#"><i class="fas fa-envelope"></i> train@nic.com</a></li>
+                        <li><a href="#"><i class="fas fa-phone"></i> +254 700 000 000</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Join the Brew</h4>
+                    <p style="color: var(--text-muted); font-size: 0.85rem;">Get weekly coffee tips and course updates.</p>
+                    <form class="newsletter-form">
+                        <input type="email" placeholder="Email Address">
+                        <button type="submit" class="btn-small">Join</button>
+                    </form>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Nairobi Institute of Coffee. Directed by Esther Ochieng.</p>
+                <div style="display: flex; gap: 1.5rem;">
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

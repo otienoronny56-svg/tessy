@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard | NIC Admin</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script>
+        const NIC_URL = "https://ouuhirckiavcvgqlpriw.supabase.co";
+        const NIC_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im91dWhpcmNraWF2Y3ZncWxwcml3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM5MTYyNDUsImV4cCI6MjA4OTQ5MjI0NX0.l5diE9bfcRQo8ZSMsAx-alG89GFifGA11hA059zDhXM";
+        const nic_supabase = window.supabase.createClient(NIC_URL, NIC_KEY);
+    </script>
+    <style>
+        :root {
+            --sidebar-width: 280px;
+        }
+        body {
+            background: #0a0807;
+            display: flex;
+            min-height: 100vh;
+        }
+        /* Sidebar */
+        .admin-sidebar { width: 280px; background: #110d0a; border-right: 1px solid rgba(255,255,255,0.05); padding: 2.5rem; display: flex; flex-direction: column; position: fixed; height: 100vh; z-index: 100; }
+        .admin-nav-link { display: flex; align-items: center; gap: 1rem; padding: 1rem; color: #888; text-decoration: none; border-radius: 12px; margin-bottom: 0.5rem; transition: 0.3s; }
+        .admin-nav-link:hover, .admin-nav-link.active { background: rgba(193, 154, 107, 0.1); color: #c29a5b; }
+        .admin-main { margin-left: 280px; flex: 1; padding: 4rem; }
+
+        /* Mobile Admin Fix */
+        @media (max-width: 992px) {
+            .admin-sidebar { width: 100%; height: auto; position: relative; padding: 1.5rem; border-right: none; border-bottom: 1px solid rgba(255,255,255,0.05); }
+            .admin-nav { display: flex; overflow-x: auto; gap: 1rem; margin-bottom: 0; }
+            .admin-nav-link { margin-bottom: 0; white-space: nowrap; padding: 0.8rem 1.2rem; }
+            .admin-main { margin-left: 0; padding: 2rem; }
+            .stat-card-grid { grid-template-columns: 1fr 1fr !important; gap: 1rem !important; }
+            .admin-logo { margin-bottom: 1.5rem !important; }
+        }
+        .stat-card {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.05);
+            padding: 2rem;
+            border-radius: 20px;
+        }
+        .admin-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 4rem;
+        }
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 2rem;
+        }
+        .data-table th {
+            text-align: left;
+            padding: 1.5rem;
+            color: var(--text-muted);
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+        .data-table td {
+            padding: 1.5rem;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+    </style>
+</head>
+<body>
+    <div class="admin-sidebar">
+        <div class="admin-logo">
+            <img src="tess.jpeg" alt="Logo">
+            <span style="font-weight: 800; letter-spacing: 1px;">NIC ADMIN</span>
+        </div>
+        <nav class="admin-nav">
+            <a href="admin-dashboard.html" class="admin-nav-link active">
+                <i class="fas fa-chart-line"></i> Overview
+            </a>
+            <a href="admin-products.html" class="admin-nav-link">
+                <i class="fas fa-shopping-bag"></i> Products
+            </a>
+            <a href="admin-blogs.html" class="admin-nav-link">
+                <i class="fas fa-pen-nib"></i> Blog Posts
+            </a>
+            <a href="#" class="admin-nav-link">
+                <i class="fas fa-users"></i> Students
+            </a>
+            <div style="margin-top: 2rem; padding-top: 2rem; border-top: 1px solid rgba(255,255,255,0.05);">
+                <p style="font-size: 0.6rem; color: #555; text-transform: uppercase; margin-bottom: 1rem; letter-spacing: 1px;">Website Shortcuts</p>
+                <a href="index.html" class="admin-nav-link" style="font-size: 0.8rem; opacity: 0.7;">
+                    <i class="fas fa-home"></i> Go to Home
+                </a>
+                <a href="shop.html" class="admin-nav-link" style="font-size: 0.8rem; opacity: 0.7;">
+                    <i class="fas fa-shopping-cart"></i> View Shop
+                </a>
+                <a href="blog.html" class="admin-nav-link" style="font-size: 0.8rem; opacity: 0.7;">
+                    <i class="fas fa-newspaper"></i> View Journal
+                </a>
+            </div>
+        </nav>
+        <a href="index.html" class="admin-nav-link" style="margin-top: auto;">
+            <i class="fas fa-sign-out-alt"></i> Logout
+        </a>
+    </div>
+
+    <main class="admin-main">
+        <div class="admin-header">
+            <div>
+                <h1 style="font-size: 2.5rem;">Welcome back, Tess</h1>
+                <p style="color: var(--text-muted);">Here is what's happening at the Institute today.</p>
+            </div>
+            <div style="display: flex; gap: 1rem;">
+                <button class="btn-small">Download Report</button>
+                <button class="btn">New Course</button>
+            </div>
+        </div>
+
+        <div class="stat-card-grid" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem;">
+            <div class="stat-card">
+                <span style="color: var(--text-muted); font-size: 0.8rem;">TOTAL REVENUE</span>
+                <h2 id="stat-revenue" style="font-size: 2rem; margin-top: 0.5rem;">KES 0</h2>
+                <span style="color: var(--text-muted); font-size: 0.8rem;">Live from database</span>
+            </div>
+            <div class="stat-card">
+                <span style="color: var(--text-muted); font-size: 0.8rem;">ACTIVE PRODUCTS</span>
+                <h2 id="stat-products" style="font-size: 2rem; margin-top: 0.5rem;">0</h2>
+                <span style="color: var(--text-muted); font-size: 0.8rem;">Items in stock</span>
+            </div>
+            <div class="stat-card">
+                <span style="color: var(--text-muted); font-size: 0.8rem;">SHOP ORDERS</span>
+                <h2 id="stat-orders" style="font-size: 2rem; margin-top: 0.5rem;">0</h2>
+                <span id="stat-pending" style="color: var(--secondary); font-size: 0.8rem;">0 pending delivery</span>
+            </div>
+            <div class="stat-card">
+                <span style="color: var(--text-muted); font-size: 0.8rem;">JOURNAL POSTS</span>
+                <h2 id="stat-blogs" style="font-size: 2rem; margin-top: 0.5rem;">0</h2>
+                <span style="color: var(--text-muted); font-size: 0.8rem;">Published insights</span>
+            </div>
+        </div>
+
+        <div class="stat-card" style="margin-top: 3rem;">
+            <h3>Recent Activity</h3>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Customer / Student</th>
+                        <th>Action</th>
+                        <th>Amount</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <div style="display: flex; align-items: center; gap: 1rem;">
+                                <div style="width: 32px; height: 32px; background: var(--secondary); border-radius: 50%;"></div>
+                                Mike Otieno
+                            </div>
+                        </td>
+                        <td>Course Enrollment: Barista Foundation</td>
+                        <td>KES 15,000</td>
+                        <td><span style="color: #4CAF50;">Completed</span></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div style="display: flex; align-items: center; gap: 1rem;">
+                                <div style="width: 32px; height: 32px; background: var(--primary); border-radius: 50%;"></div>
+                                Linda Wambui
+                            </div>
+                        </td>
+                        <td>Shop Order: "Tess Signature" Bag x2</td>
+                        <td>KES 3,000</td>
+                        <td><span style="color: var(--secondary);">Processing</span></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div style="display: flex; align-items: center; gap: 1rem;">
+                                <div style="width: 32px; height: 32px; background: #666; border-radius: 50%;"></div>
+                                Kevin K.
+                            </div>
+                        </td>
+                        <td>Course Enrollment: Roasting Science</td>
+                        <td>KES 25,000</td>
+                        <td><span style="color: #4CAF50;">Completed</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </main>
+
+    <script>
+        // Check Auth
+        if (localStorage.getItem('nic_admin_auth') !== 'true') {
+            window.location.href = 'admin-login.html';
+        }
+
+        // Fetch Live Stats
+        loadDashboardData();
+
+        async function loadDashboardData() {
+            try {
+                // 1. Fetch Orders (sale_records)
+                const { data: orders, error: orderError } = await nic_supabase
+                    .from('sale_records')
+                    .select('*')
+                    .order('logged_at', { ascending: false });
+
+                if (orderError) throw orderError;
+
+                // 2. Fetch Products Count
+                const { count: productCount, error: prodError } = await nic_supabase
+                    .from('coffee_stock')
+                    .select('*', { count: 'exact', head: true });
+
+                if (prodError) throw prodError;
+
+                // 3. Fetch Blogs Count
+                const { count: blogCount, error: blogError } = await nic_supabase
+                    .from('academy_journal')
+                    .select('*', { count: 'exact', head: true });
+
+                if (blogError) throw blogError;
+
+                // Calculate Stats
+                let totalRevenue = 0;
+                let pendingCount = 0;
+                orders.forEach(order => {
+                    totalRevenue += parseFloat(order.grand_sum || 0);
+                    if (order.delivery_status === 'queued') pendingCount++;
+                });
+
+                // Update UI Stats
+                document.getElementById('stat-revenue').innerText = `KES ${(totalRevenue / 1000).toFixed(1)}k`;
+                document.getElementById('stat-products').innerText = productCount || 0;
+                document.getElementById('stat-orders').innerText = orders.length;
+                document.getElementById('stat-pending').innerText = `${pendingCount} pending delivery`;
+                document.getElementById('stat-blogs').innerText = blogCount || 0;
+
+                // Update Recent Activity Table
+                const tableBody = document.querySelector('.data-table tbody');
+                if (orders.length === 0) {
+                    tableBody.innerHTML = '<tr><td colspan="4" style="text-align: center; padding: 3rem; color: var(--text-muted);">No sales recorded yet.</td></tr>';
+                } else {
+                    let tableHtml = '';
+                    orders.slice(0, 5).forEach(order => {
+                        tableHtml += `
+                            <tr>
+                                <td>
+                                    <div style="display: flex; align-items: center; gap: 1rem;">
+                                        <div style="width: 32px; height: 32px; background: var(--secondary); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.7rem; font-weight: 700; color: #fff;">${order.buyer_alias ? order.buyer_alias.charAt(0) : 'U'}</div>
+                                        ${order.buyer_alias || 'Unknown Customer'}
+                                    </div>
+                                </td>
+                                <td>Shop Purchase</td>
+                                <td>KES ${order.grand_sum ? order.grand_sum.toLocaleString() : '0'}</td>
+                                <td><span style="color: ${order.delivery_status === 'queued' ? 'var(--secondary)' : '#4CAF50'};">${order.delivery_status}</span></td>
+                            </tr>
+                        `;
+                    });
+                    tableBody.innerHTML = tableHtml;
+                }
+
+            } catch (err) {
+                console.error('Dashboard Error:', err);
+            }
+        }
+    </script>
+</body>
+</html>

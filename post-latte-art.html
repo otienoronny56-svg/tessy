@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>5 Steps to Perfecting Your Latte Art Rosetta | Nairobi Institute of Coffee</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .post-header {
+            height: 60vh;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            overflow: hidden;
+        }
+        .post-header-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('assets/hero_coffee_realistic.png') no-repeat center center/cover;
+            filter: brightness(0.4);
+            transform: scale(1.1);
+        }
+        .post-container {
+            max-width: 800px;
+            margin: -100px auto 100px;
+            background: var(--bg-dark);
+            padding: 5rem;
+            border-radius: 20px;
+            position: relative;
+            border: 1px solid var(--glass-border);
+            box-shadow: 0 40px 100px rgba(0,0,0,0.3);
+        }
+        .post-content {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: var(--text-muted);
+        }
+        .post-content h2 {
+            color: var(--primary);
+            margin: 3rem 0 1.5rem;
+        }
+        .post-content p {
+            margin-bottom: 2rem;
+        }
+        .post-content blockquote {
+            padding: 2rem;
+            border-left: 4px solid var(--secondary);
+            background: rgba(193, 154, 107, 0.05);
+            font-style: italic;
+            font-size: 1.3rem;
+            margin: 3rem 0;
+            color: #fff;
+        }
+        .author-box {
+            margin-top: 6rem;
+            padding-top: 4rem;
+            border-top: 1px solid var(--glass-border);
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+        .author-img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+        @media (max-width: 768px) {
+            .post-container {
+                padding: 2rem;
+                margin-top: -50px;
+                width: 90%;
+            }
+            .author-box {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="preloader" id="preloader">
+        <img src="tess.jpeg" alt="Loading..." class="loader-logo">
+    </div>
+    <div class="custom-cursor" id="cursor"></div>
+    <div class="scroll-progress" id="progress"></div>
+
+    <nav id="navbar">
+        <div class="container">
+            <a href="index.html" class="logo-container">
+                <img src="tess.jpeg" alt="Nairobi Institute of Coffee Logo">
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">The Instructor</a></li>
+                <li><a href="courses.html">Courses</a></li>
+                <li><a href="blog.html" class="active">Blog</a></li>
+                <li><a href="contact.html">Enroll</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <header class="post-header">
+        <div class="post-header-bg"></div>
+        <div class="container" style="position: relative;">
+            <span class="section-tag reveal-up active" style="background: var(--secondary); color: #fff;">Masterclass</span>
+            <h1 class="reveal-up active" style="font-size: 3.5rem; margin-top: 1rem;">5 Steps to Perfecting Your <br> Latte Art Rosetta</h1>
+            <div class="reveal-up active" style="margin-top: 2rem; color: rgba(255,255,255,0.7);">
+                <span>By Esther Ochieng</span> &bull; <span>May 05, 2026</span> &bull; <span>4 min read</span>
+            </div>
+        </div>
+    </header>
+
+    <article class="post-container">
+        <div class="post-content">
+            <p>Latte art is the visual signature of a skilled barista. While a heart or a tulip is impressive, the Rosetta remains the gold standard of pouring technique. It requires a perfect balance of milk texture, pitcher control, and timing.</p>
+
+            <h2>1. The Micro-foam Foundation</h2>
+            <p>You cannot paint without a canvas. Your milk must be "wet paint" consistency—no large bubbles, just a silky, reflective surface. We steam our milk to exactly 60-65°C to ensure the proteins provide the perfect structural integrity for art.</p>
+
+            <blockquote>
+                "Latte art is 90% preparation and 10% pouring. If your milk isn't textured correctly, the most skilled hand in the world won't be able to draw a clean line."
+            </blockquote>
+
+            <h2>2. The Base Pour</h2>
+            <p>Start high and pour slow. You want to pierce the crema without breaking its surface. This creates a brown canvas for your white milk to rest on later. Fill the cup to about 50% before starting your design.</p>
+
+            <h2>3. The Wiggle & Draw</h2>
+            <p>Lower the pitcher close to the surface and start a steady side-to-side wiggle. As the white foam appears, move the pitcher backward to create the leaves, then lift and draw through the center to complete the stem.</p>
+            
+            <p>Struggling with your pour? Our Latte Art Masterclass is a 2-day intensive where you'll pour hundreds of cups until your muscle memory takes over.</p>
+        </div>
+
+        <div class="author-box">
+            <img src="tess.jpeg" alt="Esther Ochieng" class="author-img">
+            <div>
+                <h4 style="color: var(--primary); margin-bottom: 0.5rem;">About the Author</h4>
+                <p style="font-size: 0.9rem; margin: 0;">Esther Ochieng is a two-time Kenyan Barista Champion and the founder of the Nairobi Institute of Coffee. She has dedicated her career to elevating coffee standards in East Africa.</p>
+            </div>
+        </div>
+
+        <div style="margin-top: 4rem; text-align: center;">
+            <a href="blog.html" class="btn" style="background: transparent; border: 1px solid var(--primary); color: var(--primary);">Back to Journal</a>
+        </div>
+    </article>
+
+    <footer class="main-footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <img src="tess.jpeg" alt="Logo" style="height: 50px; margin-bottom: 1.5rem; border-radius: 4px;">
+                    <p style="color: var(--text-muted); font-size: 0.9rem;">Elevating the Kenyan coffee experience through world-class education and competition-level training.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">The Instructor</a></li>
+                        <li><a href="courses.html">All Courses</a></li>
+                        <li><a href="blog.html">The Journal</a></li>
+                        <li><a href="contact.html">Enroll Now</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Contact</h4>
+                    <ul class="footer-links">
+                        <li><a href="#"><i class="fas fa-map-marker-alt"></i> Westlands, Nairobi</a></li>
+                        <li><a href="#"><i class="fas fa-envelope"></i> train@nic.com</a></li>
+                        <li><a href="#"><i class="fas fa-phone"></i> +254 700 000 000</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Join the Brew</h4>
+                    <p style="color: var(--text-muted); font-size: 0.85rem;">Get weekly coffee tips and course updates.</p>
+                    <form class="newsletter-form">
+                        <input type="email" placeholder="Email Address">
+                        <button type="submit" class="btn-small">Join</button>
+                    </form>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Nairobi Institute of Coffee. Directed by Esther Ochieng.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

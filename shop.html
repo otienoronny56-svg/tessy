@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Collection | Nairobi Institute of Coffee</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script>
+        const SUPABASE_URL = "https://ouuhirckiavcvgqlpriw.supabase.co";
+        const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im91dWhpcmNraWF2Y3ZncWxwcml3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM5MTYyNDUsImV4cCI6MjA4OTQ5MjI0NX0.l5diE9bfcRQo8ZSMsAx-alG89GFifGA11hA059zDhXM";
+        const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+    </script>
+</head>
+<body>
+    <div class="preloader" id="preloader">
+        <img src="tess.jpeg" alt="Loading..." class="loader-logo">
+    </div>
+    <div class="custom-cursor" id="cursor"></div>
+    <div class="scroll-progress" id="progress"></div>
+
+    <!-- Navigation -->
+    <nav id="navbar">
+        <div class="container">
+            <a href="index.html" class="logo-container">
+                <img src="tess.jpeg" alt="Nairobi Institute of Coffee Logo">
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">The Instructor</a></li>
+                <li><a href="courses.html">Courses</a></li>
+                <li><a href="blog.html">Blog</a></li>
+                <li><a href="shop.html" class="active">Shop</a></li>
+                <li><a href="contact.html">Enroll</a></li>
+            </ul>
+            <div class="cart-icon-nav" id="cart-trigger">
+                <i class="fas fa-shopping-bag"></i>
+                <span class="cart-count" id="cart-count">0</span>
+            </div>
+            <div class="menu-toggle" id="mobile-menu">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Cart Flyout -->
+    <div class="cart-flyout" id="cart-flyout">
+        <div class="cart-header">
+            <h3>Your Selection</h3>
+            <i class="fas fa-times" id="cart-close" style="cursor: pointer;"></i>
+        </div>
+        <div class="cart-items" id="cart-items-container">
+            <p style="color: var(--text-muted); text-align: center; margin-top: 2rem;">Your bag is empty.</p>
+        </div>
+        <div class="cart-total">
+            <div style="display: flex; justify-content: space-between; margin-bottom: 2rem;">
+                <span>Subtotal</span>
+                <span id="cart-subtotal">KES 0</span>
+            </div>
+            <button class="btn" style="width: 100%;">Checkout Now</button>
+        </div>
+    </div>
+
+    <!-- Page Header -->
+    <section class="hero" style="min-height: 40vh; padding-top: 160px; background: var(--bg-dark); text-align: center;">
+        <div class="container">
+            <div class="hero-content reveal-up active">
+                <span class="section-tag">The Collection</span>
+                <h1 style="font-size: 3.5rem; margin-bottom: 2rem;">Curated for Professionals</h1>
+                
+                <!-- High-End Search -->
+                <div class="search-container" style="max-width: 600px; margin: 0 auto;">
+                    <div style="position: relative;">
+                        <i class="fas fa-search" style="position: absolute; left: 1.5rem; top: 50%; transform: translateY(-50%); color: var(--secondary);"></i>
+                        <input type="text" id="shop-search" placeholder="Search by roast, origin or name..." 
+                            style="width: 100%; padding: 1.2rem 1.2rem 1.2rem 4rem; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); border-radius: 50px; color: #fff; outline: none; transition: var(--transition);">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Product Grid -->
+    <section class="section-padding">
+        <div class="container">
+            <div class="shop-grid" id="shop-grid-container">
+                <!-- Skeletons load by default -->
+                <div class="skeleton skeleton-card"></div>
+                <div class="skeleton skeleton-card"></div>
+                <div class="skeleton skeleton-card"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Customer Reviews Section -->
+    <section class="section-padding" style="background: var(--bg-deep); border-top: 1px solid var(--glass-border); border-bottom: 1px solid var(--glass-border);">
+        <div class="container">
+            <div style="text-align: center; margin-bottom: 5rem;">
+                <span class="section-tag">Feedback</span>
+                <h2 class="section-title">Community Reviews</h2>
+            </div>
+            
+            <div class="values-grid">
+                <div class="reveal-up" style="background: var(--glass); padding: 2rem; border-radius: 12px; border: 1px solid var(--glass-border);">
+                    <div style="color: var(--secondary); margin-bottom: 1rem;"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                    <p style="font-size: 0.9rem; font-style: italic;">"The Signature Blend is my daily go-to. The chocolate notes are incredible when brewed as a V60."</p>
+                    <h5 style="margin-top: 1rem; color: var(--primary);">— Mike O.</h5>
+                </div>
+                <div class="reveal-up" style="background: var(--glass); padding: 2rem; border-radius: 12px; border: 1px solid var(--glass-border); transition-delay: 0.2s;">
+                    <div style="color: var(--secondary); margin-bottom: 1rem;"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                    <p style="font-size: 0.9rem; font-style: italic;">"Fast delivery in Westlands and the apron is top-notch quality. Feels very professional."</p>
+                    <h5 style="margin-top: 1rem; color: var(--primary);">— Linda W.</h5>
+                </div>
+                <div class="reveal-up" style="background: var(--glass); padding: 2rem; border-radius: 12px; border: 1px solid var(--glass-border); transition-delay: 0.4s;">
+                    <div style="color: var(--secondary); margin-bottom: 1rem;"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                    <p style="font-size: 0.9rem; font-style: italic;">"The V60 kit is perfect for students. It has everything you need to practice at home."</p>
+                    <h5 style="margin-top: 1rem; color: var(--primary);">— Kevin K.</h5>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="main-footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <img src="tess.jpeg" alt="Logo" style="height: 50px; margin-bottom: 1.5rem; border-radius: 4px;">
+                    <p style="color: var(--text-muted); font-size: 0.9rem;">Elevating the Kenyan coffee experience through world-class education and competition-level training.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">The Instructor</a></li>
+                        <li><a href="courses.html">All Courses</a></li>
+                        <li><a href="blog.html">The Journal</a></li>
+                        <li><a href="shop.html">The Collection</a></li>
+                        <li><a href="contact.html">Enroll Now</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Contact</h4>
+                    <ul class="footer-links">
+                        <li><a href="#"><i class="fas fa-map-marker-alt"></i> Westlands, Nairobi</a></li>
+                        <li><a href="#"><i class="fas fa-envelope"></i> train@nic.com</a></li>
+                        <li><a href="#"><i class="fas fa-phone"></i> +254 700 000 000</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Join the Brew</h4>
+                    <p style="color: var(--text-muted); font-size: 0.85rem;">Get weekly coffee tips and course updates.</p>
+                    <form class="newsletter-form">
+                        <input type="email" placeholder="Email Address">
+                        <button type="submit" class="btn-small">Join</button>
+                    </form>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Nairobi Institute of Coffee. Directed by Esther Ochieng.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        let allProducts = [];
+        let cart = JSON.parse(localStorage.getItem('nic_cart')) || [];
+        const shopGrid = document.getElementById('shop-grid-container');
+        const searchInput = document.getElementById('shop-search');
+
+        updateCartUI();
+        fetchProducts();
+
+        async function fetchProducts() {
+            const { data, error } = await _supabase.from('coffee_stock').select('*').order('added_on', { ascending: false });
+            if (error) {
+                shopGrid.innerHTML = '<p style="color: #ff4d4d; text-align: center; width: 100%;">Failed to load collection.</p>';
+                return;
+            }
+            allProducts = data;
+            renderProducts(allProducts);
+        }
+
+        function renderProducts(products) {
+            if (products.length === 0) {
+                shopGrid.innerHTML = '<p style="color: var(--text-muted); text-align: center; width: 100%;">No matches found.</p>';
+                return;
+            }
+
+            let html = '';
+            products.forEach((product, index) => {
+                html += `
+                    <div class="product-card reveal-up active" style="transition-delay: ${index * 0.1}s;">
+                        <div class="product-image">
+                            <img src="${product.visual_asset}" alt="${product.item_label}">
+                        </div>
+                        <div class="product-info">
+                            <span class="section-tag" style="font-size: 0.6rem;">${product.bean_type}</span>
+                            <h3>${product.item_label}</h3>
+                            <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 1rem;">${product.tasting_notes}</p>
+                            <span class="price">KES ${product.cost_kes.toLocaleString()}</span>
+                            <button class="btn add-to-cart" data-id="${product.id}">Add to Bag</button>
+                        </div>
+                    </div>
+                `;
+            });
+            shopGrid.innerHTML = html;
+
+            // Bind buttons
+            document.querySelectorAll('.add-to-cart').forEach(btn => {
+                btn.onclick = () => {
+                    const id = btn.dataset.id;
+                    const p = allProducts.find(x => x.id == id);
+                    cart.push({ name: p.item_label, price: p.cost_kes, img: p.visual_asset });
+                    saveCart();
+                    updateCartUI();
+                    document.getElementById('cart-flyout').classList.add('active');
+                };
+            });
+        }
+
+        // Real-time Search
+        searchInput.oninput = (e) => {
+            const term = e.target.value.toLowerCase();
+            const filtered = allProducts.filter(p => 
+                p.item_label.toLowerCase().includes(term) || 
+                p.bean_type.toLowerCase().includes(term) ||
+                p.tasting_notes.toLowerCase().includes(term)
+            );
+            renderProducts(filtered);
+        };
+
+        function saveCart() { localStorage.setItem('nic_cart', JSON.stringify(cart)); }
+        function updateCartUI() {
+            document.getElementById('cart-count').innerText = cart.length;
+            const container = document.getElementById('cart-items-container');
+            const subtotal = document.getElementById('cart-subtotal');
+            if (cart.length === 0) {
+                container.innerHTML = '<p style="color: var(--text-muted); text-align: center; margin-top: 2rem;">Your bag is empty.</p>';
+                subtotal.innerText = 'KES 0';
+                return;
+            }
+            let html = '';
+            let total = 0;
+            cart.forEach((item, index) => {
+                total += item.price;
+                html += `<div class="cart-item"><img src="${item.img}"><div><h4>${item.name}</h4><span>KES ${item.price.toLocaleString()}</span><br><span onclick="removeItem(${index})" style="font-size: 0.7rem; color: var(--secondary); cursor: pointer;">Remove</span></div></div>`;
+            });
+            container.innerHTML = html;
+            subtotal.innerText = 'KES ' + total.toLocaleString();
+        }
+        window.removeItem = (i) => { cart.splice(i, 1); saveCart(); updateCartUI(); };
+
+        // Global UI Toggles
+        document.getElementById('cart-trigger').onclick = () => document.getElementById('cart-flyout').classList.add('active');
+        document.getElementById('cart-close').onclick = () => document.getElementById('cart-flyout').classList.remove('active');
+    </script>
+</body>
+</html>
