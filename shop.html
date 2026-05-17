@@ -11,6 +11,8 @@
     <!-- Canonical URL -->
     <link rel="canonical" href="https://nairobiinstituteofcoffee.co.ke/shop.html">
 
+    <link rel="icon" type="image/jpeg" href="tess.jpeg">
+
     <!-- Open Graph Metadata (Facebook, WhatsApp, LinkedIn) -->
     <meta property="og:type" content="website">
     <meta property="og:title" content="Specialty Coffee Shop | Nairobi Institute of Coffee">
@@ -78,7 +80,9 @@
                 <span>Subtotal</span>
                 <span id="cart-subtotal">KES 0</span>
             </div>
-            <button class="btn" style="width: 100%;">Checkout Now</button>
+            <button id="whatsapp-checkout-btn" class="btn" style="width: 100%; background: #25d366; border-color: #25d366; color: white;">
+                <i class="fab fa-whatsapp" style="margin-right: 8px;"></i> Order via WhatsApp
+            </button>
         </div>
     </div>
 
@@ -265,7 +269,16 @@
             let total = 0;
             cart.forEach((item, index) => {
                 total += item.price;
-                html += `<div class="cart-item"><img src="${item.img}"><div><h4>${item.name}</h4><span>KES ${item.price.toLocaleString()}</span><br><span onclick="removeItem(${index})" style="font-size: 0.7rem; color: var(--secondary); cursor: pointer;">Remove</span></div></div>`;
+                html += `<div class="cart-item">
+                            <img src="${item.img}">
+                            <div>
+                                <h4 style="margin-bottom: 0.3rem;">${item.name}</h4>
+                                <span style="display: block; margin-bottom: 0.8rem; color: var(--primary); font-weight: 700;">KES ${item.price.toLocaleString()}</span>
+                                <span onclick="removeItem(${index})" style="font-size: 0.75rem; color: #ff4d4d; cursor: pointer; display: flex; align-items: center; gap: 5px; transition: 0.3s;" onmouseover="this.style.opacity=0.7" onmouseout="this.style.opacity=1">
+                                    <i class="fas fa-trash"></i> Remove
+                                </span>
+                            </div>
+                         </div>`;
             });
             container.innerHTML = html;
             subtotal.innerText = 'KES ' + total.toLocaleString();
@@ -275,6 +288,44 @@
         // Global UI Toggles
         document.getElementById('cart-trigger').onclick = () => document.getElementById('cart-flyout').classList.add('active');
         document.getElementById('cart-close').onclick = () => document.getElementById('cart-flyout').classList.remove('active');
+
+        // WhatsApp Checkout Integration
+        document.getElementById('whatsapp-checkout-btn').onclick = () => {
+            if (cart.length === 0) {
+                alert('Your bag is empty!');
+                return;
+            }
+
+            let message = `*New Order from NIC Shop*%0A`;
+            message += `--------------------------------%0A`;
+            
+            let total = 0;
+            const itemCounts = {};
+            
+            // Group identical items together
+            cart.forEach(item => {
+                if (itemCounts[item.name]) {
+                    itemCounts[item.name].quantity += 1;
+                    itemCounts[item.name].subtotal += item.price;
+                } else {
+                    itemCounts[item.name] = { price: item.price, quantity: 1, subtotal: item.price };
+                }
+                total += item.price;
+            });
+
+            for (const [name, data] of Object.entries(itemCounts)) {
+                message += `- ${data.quantity}x ${name} (KES ${data.subtotal.toLocaleString()})%0A`;
+            }
+            
+            message += `--------------------------------%0A`;
+            message += `*Total Amount:* KES ${total.toLocaleString()}%0A`;
+            message += `--------------------------------%0A`;
+            message += `_Hello Tess, please confirm my order and share delivery details._`;
+
+            const whatsappNumber = "254723913325";
+            const waUrl = `https://wa.me/${whatsappNumber}?text=${message}`;
+            window.open(waUrl, '_blank');
+        };
     </script>
 
     <!-- Floating WhatsApp Button -->
@@ -283,4 +334,3 @@
     </a>
 </body>
 </html>
-

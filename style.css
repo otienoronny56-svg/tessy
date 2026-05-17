@@ -1648,6 +1648,32 @@ img {
 
 .admin-body .admin-sidebar {
     background: #110d0a !important;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 260px !important;
+    min-width: 260px !important;
+    max-width: 260px !important;
+    overflow-y: auto;
+    overflow-x: hidden;
+    z-index: 1000;
+    padding: 2.5rem 1.2rem;
+    border-right: 1px solid rgba(255, 255, 255, 0.05);
+    transition: none !important; /* Prevents the sidebar from "jumping" or flashing during tab changes */
+}
+
+/* Standardizes the content area next to the fixed sidebar */
+.admin-main {
+    margin-left: 260px !important; 
+    width: calc(100% - 260px) !important;
+    min-height: 100vh;
+    padding: 3rem 2.5rem;
+    position: relative;
+    background: #0a0807;
+    transition: none !important;
+    display: block;
+    box-sizing: border-box;
 }
 
 .admin-body .stat-card {
@@ -1657,6 +1683,14 @@ img {
 
 .admin-body .admin-nav-link {
     color: rgba(255, 255, 255, 0.5) !important;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 0.7rem 1rem; /* More compact to stop the 'magnified' feel */
+    border-radius: 8px;
+    font-size: 0.85rem; /* Reduced from default to prevent magnification */
+    transition: var(--transition);
+    margin-bottom: 0.5rem;
 }
 
 .admin-body .admin-nav-link:hover, 
@@ -1810,6 +1844,7 @@ img {
         height: 100vh !important;
         width: 280px !important;
         z-index: 9999 !important;
+        overflow-y: auto !important; /* Ensures mobile sidebar is scrollable */
         box-shadow: 15px 0 30px rgba(0, 0, 0, 0.5);
         border-right: 1px solid rgba(255, 255, 255, 0.05) !important;
         border-bottom: none !important;
@@ -2036,7 +2071,3 @@ img {
 .partner-hario:hover {
     border-color: rgba(43, 138, 141, 0.3);
 }
-
-
-
-
