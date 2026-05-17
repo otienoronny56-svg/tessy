@@ -1,16 +1,23 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Outfit:wght@300;400;600;800&display=swap');
 
 :root {
-    --bg-deep: #f7f3ef; /* Light Cream from reference */
-    --bg-dark: #eee9e4;
-    --primary: #312117; /* Deep Coffee Brown */
-    --primary-glow: rgba(49, 33, 23, 0.1);
-    --secondary: #c29a5b; /* Warm Gold */
-    --text-main: #312117;
-    --text-muted: #6b5a4e;
+    --bg-deep: #FAF6F0; /* Luxurious Champagne Cream */
+    --bg-dark: #F3ECE5; /* Rich Warm Linen Sand */
+    --primary: #1E110A; /* Ultra-deep Roast Espresso Velvet */
+    --primary-glow: rgba(30, 17, 10, 0.08);
+    --secondary: #DCA842; /* Vibrant 24K Luxury Amber Gold */
+    --secondary-glow: rgba(220, 168, 66, 0.25);
+    --crema: #E76F51; /* Competition Espresso Crema Orange (adds brilliant life!) */
+    --crema-glow: rgba(231, 111, 81, 0.15);
+    --leaf-green: #2D7252; /* Premium Organic Coffee Leaf Green */
+    --leaf-glow: rgba(45, 114, 82, 0.15);
+    --cherry-red: #C83E3E; /* Ripe Coffee Cherry Crimson Red */
+    --cherry-glow: rgba(200, 62, 62, 0.15);
+    --text-main: #1E110A; /* Clean high-contrast velvet text */
+    --text-muted: #5C4F46; /* Warm chocolate-grey for readable body copy */
     --accent: #ffffff;
-    --glass: rgba(255, 255, 255, 0.7);
-    --glass-border: rgba(49, 33, 23, 0.1);
+    --glass: rgba(255, 255, 255, 0.85); /* Rich thick premium glass */
+    --glass-border: rgba(220, 168, 66, 0.15); /* Glowing micro-gold borders */
     --transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
@@ -146,18 +153,24 @@ img {
 }
 
 .badge {
-    background: var(--primary);
-    color: #fff;
-    padding: 0.4rem 1rem;
-    border-radius: 4px;
-    font-size: 0.75rem;
+    background: rgba(255, 255, 255, 0.85);
+    color: var(--primary) !important;
+    border: 1px solid rgba(30, 17, 10, 0.12);
+    padding: 0.5rem 1.2rem;
+    border-radius: 50px;
+    font-size: 0.72rem;
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 1px;
+    box-shadow: 0 4px 12px rgba(30, 17, 10, 0.04);
+    backdrop-filter: blur(4px);
 }
 
 .badge.gold {
-    background: var(--secondary);
+    background: linear-gradient(135deg, var(--secondary) 0%, #B8860B 100%);
+    color: #fff !important;
+    border: none;
+    box-shadow: 0 6px 15px rgba(220, 168, 66, 0.3);
 }
 
 /* Hexagonal Motif */
@@ -258,15 +271,16 @@ img {
 }
 
 .logo-container img {
-    height: 50px;
+    height: 80px;
     width: auto;
-    border-radius: 4px;
+    border-radius: 8px;
     transition: var(--transition);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
 }
 
 @media (max-width: 768px) {
     .logo-container img {
-        height: 35px; /* Smaller logo on mobile */
+        height: 55px;
     }
 }
 
@@ -366,6 +380,9 @@ img {
     position: relative;
     overflow: hidden;
     padding-top: 120px; /* Space for fixed navbar */
+    background: radial-gradient(circle at 80% 20%, rgba(220, 168, 66, 0.15) 0%, transparent 60%),
+                radial-gradient(circle at 10% 80%, rgba(231, 111, 81, 0.1) 0%, transparent 50%),
+                var(--bg-deep);
 }
 
 .hero-bg {
@@ -403,7 +420,9 @@ img {
     font-weight: 800;
     line-height: 1.1;
     margin-bottom: 1.5rem;
-    color: var(--primary);
+    background: linear-gradient(135deg, var(--primary) 30%, #4E2F1D 70%, var(--secondary) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
 .hero p {
@@ -414,20 +433,23 @@ img {
 
 .btn {
     display: inline-block;
-    padding: 1rem 2.5rem;
-    background: var(--primary);
+    padding: 1rem 2.8rem;
+    background: linear-gradient(135deg, var(--primary) 0%, #3a2215 100%);
     color: #fff;
     font-weight: 700;
-    border-radius: 4px;
+    border-radius: 50px;
     text-transform: uppercase;
-    letter-spacing: 1px;
-    box-shadow: 0 10px 20px var(--primary-glow);
+    letter-spacing: 1.5px;
+    box-shadow: 0 10px 25px rgba(30, 17, 10, 0.20);
+    transition: var(--transition);
+    border: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 .btn:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 15px 30px var(--primary-glow);
-    background: var(--secondary);
+    transform: translateY(-4px) scale(1.02);
+    box-shadow: 0 15px 30px rgba(220, 168, 66, 0.4);
+    background: linear-gradient(135deg, var(--secondary) 0%, #b8860b 100%);
+    color: #fff !important;
 }
 
 /* About Section */
@@ -1251,4 +1273,770 @@ img {
     color: var(--text-muted);
     line-height: 1.6;
 }
+
+.footer-bottom a.developer-link {
+    color: var(--secondary);
+    text-decoration: none;
+    font-weight: 600;
+    margin-left: 0.5rem;
+    transition: var(--transition);
+}
+
+.footer-bottom a.developer-link:hover {
+    color: var(--primary);
+    text-decoration: underline;
+}
+
+/* Floating WhatsApp Button */
+.whatsapp-float {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 60px;
+    height: 60px;
+    background-color: #25d366;
+    color: #fff;
+    border-radius: 50%;
+    text-align: center;
+    font-size: 30px;
+    box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4);
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    animation: wa-pulse 2s infinite;
+}
+
+.whatsapp-float:hover {
+    background-color: #20ba5a;
+    transform: translateY(-5px) scale(1.05);
+    box-shadow: 0 8px 25px rgba(37, 211, 102, 0.6);
+    color: #fff;
+}
+
+.whatsapp-float i {
+    margin-top: 1px;
+}
+
+/* Tooltip on hover */
+.whatsapp-float::before {
+    content: "Chat with Us";
+    position: absolute;
+    right: 75px;
+    background: var(--primary);
+    color: #fff;
+    padding: 0.5rem 1rem;
+    font-size: 0.8rem;
+    font-weight: 600;
+    border-radius: 8px;
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    box-shadow: 0 10px 30px rgba(49, 33, 23, 0.15);
+    pointer-events: none;
+}
+
+.whatsapp-float:hover::before {
+    opacity: 1;
+    visibility: visible;
+    right: 70px;
+}
+
+@keyframes wa-pulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.5);
+    }
+    70% {
+        box-shadow: 0 0 0 15px rgba(37, 211, 102, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(37, 211, 102, 0);
+    }
+}
+
+/* Responsive adjustment for small screens */
+@media (max-width: 768px) {
+    .whatsapp-float {
+        bottom: 20px;
+        right: 20px;
+        width: 50px;
+        height: 50px;
+        font-size: 24px;
+    }
+    .whatsapp-float::before {
+        display: none;
+    }
+}
+
+/* Academy Curriculum & Training Section */
+.curriculum-section {
+    background: radial-gradient(circle at 10% 20%, rgba(220, 168, 66, 0.06) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(231, 111, 81, 0.05) 0%, transparent 45%),
+                var(--bg-dark);
+    position: relative;
+    overflow: hidden;
+}
+
+.levels-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 5rem;
+}
+
+.level-card {
+    background: var(--glass);
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+    padding: 3rem 2rem;
+    text-align: center;
+    box-shadow: 0 10px 35px rgba(30, 17, 10, 0.03);
+    transition: var(--transition);
+    position: relative;
+    overflow: hidden;
+}
+
+.level-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(90deg, var(--secondary), var(--crema));
+    opacity: 0;
+    transition: var(--transition);
+}
+
+.level-card:hover {
+    transform: translateY(-8px) scale(1.02);
+    border-color: rgba(220, 168, 66, 0.4);
+    box-shadow: 0 25px 50px rgba(220, 168, 66, 0.16);
+    background: #ffffff;
+}
+
+.level-card:hover::before {
+    opacity: 1;
+}
+
+.level-card .level-icon {
+    font-size: 2.2rem;
+    color: var(--crema); /* Pop with Crema Orange! */
+    margin-bottom: 1.5rem;
+    transition: var(--transition);
+}
+
+.level-card:hover .level-icon {
+    transform: scale(1.15) rotate(5deg);
+}
+
+.level-card h4 {
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.25rem;
+    font-weight: 800;
+    color: var(--primary);
+    margin-bottom: 0.5rem;
+}
+
+.level-card p {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+}
+
+.pillars-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2.5rem;
+}
+
+.pillar-card {
+    background: var(--glass);
+    border: 1px solid var(--glass-border);
+    border-radius: 24px;
+    padding: 3.5rem;
+    box-shadow: 0 15px 40px rgba(30, 17, 10, 0.03);
+    transition: var(--transition);
+}
+
+.pillar-card:hover {
+    box-shadow: 0 30px 60px rgba(30, 17, 10, 0.08);
+    border-color: rgba(220, 168, 66, 0.35);
+    background: #ffffff;
+}
+
+.pillar-card h3 {
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.65rem;
+    font-weight: 800;
+    color: var(--primary);
+    margin-bottom: 2rem;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    border-bottom: 1.5px solid rgba(220, 168, 66, 0.15);
+    padding-bottom: 1.2rem;
+}
+
+.pillar-card h3 i {
+    color: var(--crema); /* Pop with Crema Orange! */
+    font-size: 1.8rem;
+}
+
+.pillar-list {
+    list-style: none;
+    display: grid;
+    gap: 1rem;
+}
+
+.pillar-list li {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    line-height: 1.5;
+}
+
+.pillar-list li i {
+    color: var(--secondary);
+    margin-top: 4px;
+    font-size: 0.85rem;
+}
+
+@media (max-width: 1024px) {
+    .pillars-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+}
+@media (max-width: 768px) {
+    .pillar-card {
+        padding: 2rem;
+    }
+}
+
+/* Color Spectrum for Level Cards representing Coffee Lifecycle */
+.level-card:nth-child(1) .level-icon {
+    color: var(--secondary); /* 24K Gold standard foundational certificate */
+}
+.level-card:nth-child(1)::before {
+    background: var(--secondary);
+}
+.level-card:nth-child(1):hover {
+    border-color: rgba(220, 168, 66, 0.4);
+    box-shadow: 0 25px 50px rgba(220, 168, 66, 0.16);
+}
+
+.level-card:nth-child(2) .level-icon {
+    color: var(--crema); /* Rich Espresso Crema Orange diploma */
+}
+.level-card:nth-child(2)::before {
+    background: var(--crema);
+}
+.level-card:nth-child(2):hover {
+    border-color: rgba(231, 111, 81, 0.4);
+    box-shadow: 0 25px 50px rgba(231, 111, 81, 0.16);
+}
+
+.level-card:nth-child(3) .level-icon {
+    color: var(--leaf-green); /* Fresh Coffee Leaf Green advanced diploma */
+}
+.level-card:nth-child(3)::before {
+    background: var(--leaf-green);
+}
+.level-card:nth-child(3):hover {
+    border-color: rgba(45, 114, 82, 0.4);
+    box-shadow: 0 25px 50px rgba(45, 114, 82, 0.16);
+}
+
+.level-card:nth-child(4) .level-icon {
+    color: var(--cherry-red); /* Ripe Coffee Cherry Crimson Red Micro-masters */
+}
+.level-card:nth-child(4)::before {
+    background: var(--cherry-red);
+}
+.level-card:nth-child(4):hover {
+    border-color: rgba(200, 62, 62, 0.4);
+    box-shadow: 0 25px 50px rgba(200, 62, 62, 0.16);
+}
+
+.level-card:nth-child(5) .level-icon {
+    color: var(--primary); /* Ultra-deep Velvet Espresso Coffee MBA */
+}
+.level-card:nth-child(5)::before {
+    background: var(--primary);
+}
+.level-card:nth-child(5):hover {
+    border-color: rgba(30, 17, 10, 0.4);
+    box-shadow: 0 25px 50px rgba(30, 17, 10, 0.16);
+}
+
+/* Color Accents for Pillars representing Science & Agribusiness */
+.pillar-card:nth-child(1) h3 i {
+    color: var(--leaf-green); /* Agribusiness & Organic Botany */
+}
+.pillar-card:nth-child(1):hover {
+    border-color: rgba(45, 114, 82, 0.35);
+    box-shadow: 0 30px 60px rgba(45, 114, 82, 0.08);
+}
+
+.pillar-card:nth-child(2) h3 i {
+    color: var(--crema); /* Roast Physics, Chemistry, & Extraction Technology */
+}
+.pillar-card:nth-child(2):hover {
+    border-color: rgba(231, 111, 81, 0.35);
+    box-shadow: 0 30px 60px rgba(231, 111, 81, 0.08);
+}
+
+/* ==========================================
+   ADMIN PORTAL DARK THEME OVERRIDES
+   Ensures absolute visibility on dark admin pages
+   ========================================== */
+.admin-body {
+    background-color: #0a0807 !important;
+    background-image: none !important;
+    color: #ffffff !important;
+}
+
+.admin-body h1, 
+.admin-body h2, 
+.admin-body h3, 
+.admin-body h4, 
+.admin-body h5, 
+.admin-body h6, 
+.admin-body th {
+    color: #ffffff !important;
+    font-family: 'Outfit', sans-serif !important;
+}
+
+.admin-body p, 
+.admin-body span:not(.section-tag):not(.badge):not(.status),
+.admin-body label,
+.admin-body .text-muted,
+.admin-body .form-group label {
+    color: rgba(255, 255, 255, 0.6) !important;
+}
+
+.admin-body td {
+    color: #ffffff !important;
+}
+
+.admin-body th {
+    color: rgba(255, 255, 255, 0.4) !important;
+    font-weight: 600 !important;
+    font-size: 0.75rem !important;
+    letter-spacing: 1px !important;
+}
+
+.admin-body input, 
+.admin-body textarea, 
+.admin-body select {
+    background: #1a1512 !important;
+    border: 1.5px solid rgba(255, 255, 255, 0.15) !important;
+    color: #ffffff !important;
+}
+
+.admin-body input:focus, 
+.admin-body textarea:focus, 
+.admin-body select:focus {
+    border-color: var(--secondary) !important;
+    background: #261f1a !important;
+}
+
+.admin-body .admin-sidebar {
+    background: #110d0a !important;
+}
+
+.admin-body .stat-card {
+    background: rgba(255, 255, 255, 0.03) !important;
+    border: 1px solid rgba(255, 255, 255, 0.05) !important;
+}
+
+.admin-body .admin-nav-link {
+    color: rgba(255, 255, 255, 0.5) !important;
+}
+
+.admin-body .admin-nav-link:hover, 
+.admin-body .admin-nav-link.active {
+    color: var(--secondary) !important;
+    background: rgba(193, 154, 107, 0.1) !important;
+}
+
+/* ==========================================
+   STATS & VALUES SECTION LAYOUT (4 Columns)
+   Resolves empty space and upgrades visual premium
+   ========================================== */
+.values-grid {
+    display: grid !important;
+    grid-template-columns: repeat(4, 1fr) !important;
+    gap: 2.5rem !important;
+    text-align: center;
+    width: 100%;
+}
+
+.value-item {
+    background: var(--glass) !important;
+    border: 1px solid var(--glass-border) !important;
+    padding: 3rem 2rem !important;
+    border-radius: 24px !important;
+    box-shadow: 0 10px 30px rgba(49, 33, 23, 0.02) !important;
+    transition: var(--transition) !important;
+    position: relative;
+    overflow: hidden;
+}
+
+.value-item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(90deg, var(--secondary) 0%, var(--crema) 100%);
+    opacity: 0.8;
+}
+
+.value-item:hover {
+    transform: translateY(-8px) !important;
+    border-color: rgba(220, 168, 66, 0.35) !important;
+    box-shadow: 0 20px 45px rgba(220, 168, 66, 0.1) !important;
+}
+
+/* Multi-color lifecycle indicators for Stats cards */
+.value-item:nth-child(1)::before {
+    background: linear-gradient(90deg, var(--secondary) 0%, var(--crema) 100%);
+}
+.value-item:nth-child(2)::before {
+    background: linear-gradient(90deg, var(--crema) 0%, var(--leaf-green) 100%);
+}
+.value-item:nth-child(3)::before {
+    background: linear-gradient(90deg, var(--leaf-green) 0%, var(--cherry-red) 100%);
+}
+.value-item:nth-child(4)::before {
+    background: linear-gradient(90deg, var(--cherry-red) 0%, var(--secondary) 100%);
+}
+
+@media (max-width: 992px) {
+    .values-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 2rem !important;
+    }
+}
+
+@media (max-width: 576px) {
+    .values-grid {
+        grid-template-columns: 1fr !important;
+        gap: 1.5rem !important;
+    }
+}
+
+/* ==========================================
+   ADMIN PORTAL MOBILE HAMBURGER NAVIGATION
+   Provides flawless, fluid sliding navigation on phones
+   ========================================== */
+.admin-mobile-header {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 70px;
+    background: #110d0a;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    padding: 0 1.5rem;
+    align-items: center;
+    justify-content: space-between;
+    z-index: 10000;
+}
+
+.admin-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(5px);
+    z-index: 9998;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.admin-overlay.active {
+    display: block;
+    opacity: 1;
+}
+
+.close-sidebar {
+    display: none !important;
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+    font-size: 1.5rem;
+    color: rgba(255, 255, 255, 0.5);
+    cursor: pointer;
+    transition: var(--transition);
+}
+.close-sidebar:hover {
+    color: var(--secondary);
+}
+
+@media (max-width: 992px) {
+    /* Prevent any horizontal screen scrolling globally on mobile */
+    html, body.admin-body {
+        width: 100% !important;
+        max-width: 100vw !important;
+        overflow-x: hidden !important;
+    }
+    
+    body.admin-body {
+        flex-direction: column !important;
+    }
+
+    .admin-mobile-header {
+        display: flex;
+    }
+    
+    .admin-sidebar {
+        transform: translateX(-100%);
+        transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1) !important;
+        position: fixed !important;
+        top: 0 !important;
+        left: 0 !important;
+        height: 100vh !important;
+        width: 280px !important;
+        z-index: 9999 !important;
+        box-shadow: 15px 0 30px rgba(0, 0, 0, 0.5);
+        border-right: 1px solid rgba(255, 255, 255, 0.05) !important;
+        border-bottom: none !important;
+        padding-top: 5rem !important; /* Spacing below the close button */
+    }
+    
+    .admin-sidebar.open {
+        transform: translateX(0);
+    }
+    
+    .close-sidebar {
+        display: block !important;
+    }
+    
+    .admin-main {
+        margin-left: 0 !important;
+        padding: 7rem 1.5rem 3rem 1.5rem !important; /* Padding for fixed header */
+        width: 100% !important;
+        max-width: 100vw !important;
+        overflow-x: hidden !important;
+    }
+    
+    .admin-logo {
+        margin-bottom: 2rem !important;
+    }
+    
+    .stat-card-grid {
+        grid-template-columns: 1fr !important;
+        gap: 1.5rem !important;
+    }
+    
+    .manager-grid, .product-manager-grid {
+        grid-template-columns: 1fr !important;
+        gap: 2rem !important;
+    }
+
+    /* Force tables to be scrollable inside their container instead of overflowing the page */
+    .data-table {
+        display: block !important;
+        width: 100% !important;
+        overflow-x: auto !important;
+        white-space: nowrap !important;
+        -webkit-overflow-scrolling: touch !important;
+    }
+}
+
+/* ==========================================
+   PUBLIC PAGE HERO SECTION MOBILE OPTIMIZATION
+   Eliminates the huge empty gap under the mobile navbar
+   ========================================== */
+@media (max-width: 768px) {
+    .hero {
+        padding-top: 85px !important; /* SNUG fit under mobile navbar logo */
+        min-height: auto !important; /* Eliminates vertical height stretching */
+        padding-bottom: 3.5rem !important;
+        display: block !important;
+    }
+    
+    .hero-content {
+        margin-top: 0 !important;
+        padding-top: 0.5rem !important;
+    }
+    
+    .hero h1 {
+        font-size: 2.6rem !important; /* Clean, bold, compact mobile heading */
+        line-height: 1.15 !important;
+        margin-bottom: 1rem !important;
+    }
+    
+    .hero p {
+        font-size: 0.95rem !important;
+        line-height: 1.5 !important;
+        margin-bottom: 1.8rem !important;
+    }
+
+    .badge-container {
+        margin-bottom: 1.2rem !important;
+        display: flex !important;
+        flex-wrap: wrap !important;
+        gap: 0.5rem !important;
+    }
+    
+    .badge {
+        font-size: 0.65rem !important;
+        padding: 0.35rem 0.75rem !important;
+    }
+}
+
+/* ==========================================
+   GLOBAL PARTNERS INFINITE MARQUEE CAROUSEL
+   State-of-the-art interactive scrolling marquee
+   ========================================== */
+.partners-marquee-container {
+    overflow: hidden;
+    width: 100%;
+    position: relative;
+    padding: 1.5rem 0;
+    /* Softly fade left and right edges for a luxurious, glowing transition effect */
+    mask-image: linear-gradient(to right, transparent, white 15%, white 85%, transparent);
+    -webkit-mask-image: linear-gradient(to right, transparent, white 15%, white 85%, transparent);
+}
+
+.partners-marquee-track {
+    display: flex;
+    gap: 2.5rem;
+    width: max-content;
+    animation: partnerMarquee 30s linear infinite;
+}
+
+/* Pause the scrolling marquee on hover so users can interact with card elements */
+.partners-marquee-container:hover .partners-marquee-track {
+    animation-play-state: paused;
+}
+
+@keyframes partnerMarquee {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(calc(-50% - 1.25rem));
+    }
+}
+
+.partner-card {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    background: #ffffff;
+    border: 1.5px solid rgba(49, 33, 23, 0.05);
+    padding: 1.5rem 2.2rem;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(49, 33, 23, 0.02);
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    cursor: pointer;
+    min-width: 290px;
+    position: relative;
+}
+
+/* Subtle organic shadow when hover scale is activated */
+.partner-card:hover {
+    transform: translateY(-8px) scale(1.025);
+    box-shadow: 0 20px 45px rgba(49, 33, 23, 0.08);
+}
+
+.partner-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 54px;
+    height: 54px;
+    border-radius: 50%;
+    font-size: 1.4rem;
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.partner-card:hover .partner-icon {
+    transform: scale(1.1) rotate(8deg);
+}
+
+.partner-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.partner-name {
+    display: block;
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.15rem;
+    font-weight: 800;
+    color: var(--primary);
+    letter-spacing: 0.5px;
+}
+
+.partner-desc {
+    display: block;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    font-weight: 500;
+    margin-top: 3px;
+}
+
+/* Brand Colors Spectrums */
+/* 1. La Marzocco Crimson Cherry Red */
+.partner-marzocco .partner-icon {
+    color: var(--cherry-red);
+    background: rgba(200, 62, 62, 0.07);
+}
+.partner-marzocco:hover {
+    border-color: rgba(200, 62, 62, 0.3);
+}
+
+/* 2. Mahlkönig Gold standard */
+.partner-mahlkoenig .partner-icon {
+    color: var(--secondary);
+    background: rgba(220, 168, 66, 0.07);
+}
+.partner-mahlkoenig:hover {
+    border-color: rgba(220, 168, 66, 0.35);
+}
+
+/* 3. Victoria Arduino Crema Orange */
+.partner-victoria .partner-icon {
+    color: var(--crema);
+    background: rgba(231, 111, 81, 0.07);
+}
+.partner-victoria:hover {
+    border-color: rgba(231, 111, 81, 0.3);
+}
+
+/* 4. SCA Kenya Leaf Green */
+.partner-sca .partner-icon {
+    color: var(--leaf-green);
+    background: rgba(45, 114, 82, 0.07);
+}
+.partner-sca:hover {
+    border-color: rgba(45, 114, 82, 0.3);
+}
+
+/* 5. Hario Glass Teal */
+.partner-hario .partner-icon {
+    color: #2B8A8D;
+    background: rgba(43, 138, 141, 0.07);
+}
+.partner-hario:hover {
+    border-color: rgba(43, 138, 141, 0.3);
+}
+
+
+
 

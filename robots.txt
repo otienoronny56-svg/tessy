@@ -1,0 +1,13 @@
+User-agent: *
+Allow: /
+
+# Admin pages shouldn't be indexed to keep search results clean
+Disallow: /admin-dashboard.html
+Disallow: /admin-blogs.html
+Disallow: /admin-courses.html
+Disallow: /admin-faculty.html
+Disallow: /admin-login.html
+Disallow: /admin-products.html
+Disallow: /checkout.html
+
+Sitemap: https://nairobiinstituteofcoffee.co.ke/sitemap.xml

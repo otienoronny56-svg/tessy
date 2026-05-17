@@ -19,15 +19,6 @@
         .admin-nav-link:hover, .admin-nav-link.active { background: rgba(193, 154, 107, 0.1); color: #c29a5b; }
         .admin-main { margin-left: 280px; flex: 1; padding: 4rem; }
         
-        /* Mobile Admin Fix */
-        @media (max-width: 992px) {
-            .admin-sidebar { width: 100%; height: auto; position: relative; padding: 1.5rem; border-right: none; border-bottom: 1px solid rgba(255,255,255,0.05); }
-            .admin-nav { display: flex; overflow-x: auto; gap: 1rem; margin-bottom: 0; }
-            .admin-nav-link { margin-bottom: 0; white-space: nowrap; padding: 0.8rem 1.2rem; }
-            .admin-main { margin-left: 0; padding: 2rem; }
-            .manager-grid { grid-template-columns: 1fr; gap: 2rem; }
-            .admin-logo { margin-bottom: 1.5rem !important; }
-        }
         .manager-grid { display: grid; grid-template-columns: 1.2fr 1fr; gap: 4rem; }
         .manager-card { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.05); padding: 3rem; border-radius: 20px; }
         input, textarea, select { width: 100%; background: #1a1512; border: 1.5px solid rgba(255,255,255,0.15); padding: 1.2rem; border-radius: 10px; color: #ffffff; margin-bottom: 1.5rem; outline: none; transition: var(--transition); }
@@ -40,7 +31,7 @@
         .upload-preview { width: 100%; height: 200px; border-radius: 8px; object-fit: cover; margin-top: 1rem; display: none; }
     </style>
 </head>
-<body>
+<body class="admin-body">
     <div class="admin-sidebar">
         <div class="admin-logo" style="display: flex; align-items: center; gap: 1rem; margin-bottom: 4rem;">
             <img src="tess.jpeg" alt="Logo" style="height: 40px; border-radius: 6px;">
@@ -64,6 +55,9 @@
             </a>
             <a href="#" class="admin-nav-link">
                 <i class="fas fa-users"></i> Students
+            </a>
+            <a href="admin-guide.html" class="admin-nav-link" style="background: linear-gradient(135deg, rgba(220,168,66,0.12) 0%, rgba(220,168,66,0.06) 100%); border: 1px solid rgba(220,168,66,0.2);">
+                <i class="fas fa-compass" style="color: var(--secondary);"></i> <span style="color: var(--secondary);">Mission Control</span>
             </a>
             <div style="margin-top: auto; padding-top: 2rem; border-top: 1px solid rgba(255,255,255,0.05);">
                 <p style="font-size: 0.6rem; color: #555; text-transform: uppercase; margin-bottom: 1rem; letter-spacing: 1px;">Website Shortcuts</p>
@@ -217,10 +211,67 @@
 
         window.deleteBlog = async (id) => {
             if (confirm('Delete this story?')) {
-                const { error } = await nic_supabase.from('academy_journal').delete().eq('id', id);
-                if (error) alert(error.message); else loadBlogs();
+                try {
+                    const queryId = isNaN(id) ? id : Number(id);
+                    console.log('Attempting to delete blog post with ID:', queryId);
+                    const { error } = await nic_supabase.from('academy_journal').delete().eq('id', queryId);
+                    if (error) {
+                        console.error('Database delete error:', error);
+                        alert('Delete failed: ' + error.message);
+                    } else {
+                        loadBlogs();
+                    }
+                } catch (err) {
+                    console.error('Caught error during delete:', err);
+                    alert('An unexpected error occurred: ' + err.message);
+                }
             }
         };
+
+        // Dynamic Mobile Sidebar Navigation & Hamburger Setup
+        document.addEventListener('DOMContentLoaded', () => {
+            const sidebar = document.querySelector('.admin-sidebar');
+            if (sidebar) {
+                // 1. Create Mobile Top Bar
+                const mobileHeader = document.createElement('div');
+                mobileHeader.className = 'admin-mobile-header';
+                mobileHeader.innerHTML = `
+                    <div style="display: flex; align-items: center; gap: 0.8rem;">
+                        <img src="tess.jpeg" style="height: 32px; border-radius: 4px; object-fit: cover;">
+                        <span style="font-weight: 800; letter-spacing: 1px; font-size: 0.9rem; color: #fff;">NIC ADMIN</span>
+                    </div>
+                    <button id="admin-hamburger" style="background: none; border: none; color: #fff; font-size: 1.3rem; cursor: pointer; padding: 0.5rem;">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                `;
+                document.body.prepend(mobileHeader);
+
+                // 2. Create Overlay
+                const overlay = document.createElement('div');
+                overlay.className = 'admin-overlay';
+                document.body.appendChild(overlay);
+
+                // 3. Create Close Button inside Sidebar
+                const closeBtn = document.createElement('i');
+                closeBtn.className = 'fas fa-times close-sidebar';
+                sidebar.prepend(closeBtn);
+
+                // 4. Bind Toggle Events
+                const hamburger = document.getElementById('admin-hamburger');
+                const openSidebar = () => {
+                    sidebar.classList.add('open');
+                    overlay.classList.add('active');
+                };
+                const closeSidebar = () => {
+                    sidebar.classList.remove('open');
+                    overlay.classList.remove('active');
+                };
+
+                hamburger.addEventListener('click', openSidebar);
+                closeBtn.addEventListener('click', closeSidebar);
+                overlay.addEventListener('click', closeSidebar);
+            }
+        });
     </script>
 </body>
 </html>

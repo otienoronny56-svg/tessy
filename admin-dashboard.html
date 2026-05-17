@@ -27,15 +27,6 @@
         .admin-nav-link:hover, .admin-nav-link.active { background: rgba(193, 154, 107, 0.1); color: #c29a5b; }
         .admin-main { margin-left: 280px; flex: 1; padding: 4rem; }
 
-        /* Mobile Admin Fix */
-        @media (max-width: 992px) {
-            .admin-sidebar { width: 100%; height: auto; position: relative; padding: 1.5rem; border-right: none; border-bottom: 1px solid rgba(255,255,255,0.05); }
-            .admin-nav { display: flex; overflow-x: auto; gap: 1rem; margin-bottom: 0; }
-            .admin-nav-link { margin-bottom: 0; white-space: nowrap; padding: 0.8rem 1.2rem; }
-            .admin-main { margin-left: 0; padding: 2rem; }
-            .stat-card-grid { grid-template-columns: 1fr 1fr !important; gap: 1rem !important; }
-            .admin-logo { margin-bottom: 1.5rem !important; }
-        }
         .stat-card {
             background: rgba(255,255,255,0.03);
             border: 1px solid rgba(255,255,255,0.05);
@@ -67,7 +58,7 @@
         }
     </style>
 </head>
-<body>
+<body class="admin-body">
     <div class="admin-sidebar">
         <div class="admin-logo">
             <img src="tess.jpeg" alt="Logo">
@@ -91,6 +82,9 @@
             </a>
             <a href="#" class="admin-nav-link">
                 <i class="fas fa-users"></i> Students
+            </a>
+            <a href="admin-guide.html" class="admin-nav-link" style="background: linear-gradient(135deg, rgba(220,168,66,0.12) 0%, rgba(220,168,66,0.06) 100%); border: 1px solid rgba(220,168,66,0.2);">
+                <i class="fas fa-compass" style="color: var(--secondary);"></i> <span style="color: var(--secondary);">Mission Control</span>
             </a>
             <div style="margin-top: auto; padding-top: 2rem; border-top: 1px solid rgba(255,255,255,0.05);">
                 <p style="font-size: 0.6rem; color: #555; text-transform: uppercase; margin-bottom: 1rem; letter-spacing: 1px;">Website Shortcuts</p>
@@ -117,7 +111,6 @@
                 <p style="color: var(--text-muted);">Here is what's happening at the Institute today.</p>
             </div>
             <div style="display: flex; gap: 1rem; align-items: center;">
-                <button class="btn" onclick="seedDefaultNICData()" style="background: linear-gradient(135deg, var(--secondary) 0%, #a67c48 100%);">Seed Default Data</button>
                 <button class="btn-small" onclick="window.location.href='admin-courses.html'">New Course</button>
             </div>
         </div>
@@ -272,71 +265,52 @@
             }
         }
 
-        async function seedDefaultNICData() {
-            if (!confirm('This will load 5 default courses, 5 faculty members, 5 blog posts, and 5 products into your Supabase database. Existing data will NOT be affected. Do you want to continue?')) {
-                return;
+        // seedDefaultNICData removed — data is live
+
+        // Dynamic Mobile Sidebar Navigation & Hamburger Setup
+        document.addEventListener('DOMContentLoaded', () => {
+            const sidebar = document.querySelector('.admin-sidebar');
+            if (sidebar) {
+                // 1. Create Mobile Top Bar
+                const mobileHeader = document.createElement('div');
+                mobileHeader.className = 'admin-mobile-header';
+                mobileHeader.innerHTML = `
+                    <div style="display: flex; align-items: center; gap: 0.8rem;">
+                        <img src="tess.jpeg" style="height: 32px; border-radius: 4px; object-fit: cover;">
+                        <span style="font-weight: 800; letter-spacing: 1px; font-size: 0.9rem; color: #fff;">NIC ADMIN</span>
+                    </div>
+                    <button id="admin-hamburger" style="background: none; border: none; color: #fff; font-size: 1.3rem; cursor: pointer; padding: 0.5rem;">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                `;
+                document.body.prepend(mobileHeader);
+
+                // 2. Create Overlay
+                const overlay = document.createElement('div');
+                overlay.className = 'admin-overlay';
+                document.body.appendChild(overlay);
+
+                // 3. Create Close Button inside Sidebar
+                const closeBtn = document.createElement('i');
+                closeBtn.className = 'fas fa-times close-sidebar';
+                sidebar.prepend(closeBtn);
+
+                // 4. Bind Toggle Events
+                const hamburger = document.getElementById('admin-hamburger');
+                const openSidebar = () => {
+                    sidebar.classList.add('open');
+                    overlay.classList.add('active');
+                };
+                const closeSidebar = () => {
+                    sidebar.classList.remove('open');
+                    overlay.classList.remove('active');
+                };
+
+                hamburger.addEventListener('click', openSidebar);
+                closeBtn.addEventListener('click', closeSidebar);
+                overlay.addEventListener('click', closeSidebar);
             }
-
-            const btn = document.querySelector('button[onclick="seedDefaultNICData()"]');
-            const originalText = btn.innerText;
-            btn.innerText = 'Seeding Data...';
-            btn.disabled = true;
-
-            try {
-                // 1. Seed Faculty Members
-                const faculty = [
-                    { headline: 'Esther "Tess" Ochieng', hub_tag: '[FACULTY]', cover_image: 'assets/tess_ochieng_realistic.png', story_body: 'Founder & Director|2-Time Kenya Barista Champion, elite Q-Grader, and certified SCA Trainer.' },
-                    { headline: 'James Kamau', hub_tag: '[FACULTY]', cover_image: 'assets/student_james.png', story_body: 'Lead Barista Instructor|Certified SCA Professional with 7+ years of experience training competition-level baristas.' },
-                    { headline: 'Sarah Wambui', hub_tag: '[FACULTY]', cover_image: 'assets/student_sarah.png', story_body: 'Roasting & Sensory Head|SCA Certified Roaster specializing in sensory evaluation and green coffee roast profiling.' },
-                    { headline: 'David Omondi', hub_tag: '[FACULTY]', cover_image: 'assets/student_david.png', story_body: 'Brewing Methods Coach|Extraction specialist expert in water chemistry, TDS analysis, and manual brewing techniques.' },
-                    { headline: 'John Kiprop', hub_tag: '[FACULTY]', cover_image: 'assets/student_james.png', story_body: 'SCA Brewing Professional|Expert in high-volume espresso extraction, workflow optimization, and latte art styling.' }
-                ];
-                const { error: facError } = await nic_supabase.from('academy_journal').insert(faculty);
-                if (facError) throw facError;
-
-                // 2. Seed Courses
-                const courses = [
-                    { headline: 'Barista Foundations', hub_tag: '[COURSE]', cover_image: '', story_body: '5 Days|SCA Standard|25,000|Perfect for beginners. Learn machine maintenance, espresso basics, and milk steaming techniques.|fas fa-mug-hot' },
-                    { headline: 'Roasting Science', hub_tag: '[COURSE]', cover_image: '', story_body: '3 Days|Professional|35,000|Master the heat. Understand the chemical transformations of green coffee during the roasting process.|fas fa-wind' },
-                    { headline: 'Latte Art Masterclass', hub_tag: '[COURSE]', cover_image: '', story_body: '2 Days|Mastery|15,000|The final touch. Advanced techniques in milk pouring to create stunning designs and patterns.|fas fa-palette' },
-                    { headline: 'Sensory Skills Level 1', hub_tag: '[COURSE]', cover_image: '', story_body: '3 Days|Intermediate|30,000|Train your palate. Identify primary coffee taste profiles, organic acids, and specialty defect beans.|fas fa-award' },
-                    { headline: 'Green Coffee Grading', hub_tag: '[COURSE]', cover_image: '', story_body: '4 Days|Professional|40,000|Examine specialty coffee at its source. Master SCA physical grading and moisture analysis.|fas fa-coffee' }
-                ];
-                const { error: courseError } = await nic_supabase.from('academy_journal').insert(courses);
-                if (courseError) throw courseError;
-
-                // 3. Seed Blogs
-                const blogs = [
-                    { headline: 'Mastering the V60: Precision Extraction Guide', hub_tag: 'Brewing Tips', cover_image: 'blog_brewing_tips_1778940373592.png', story_body: '[AUTHOR: Esther Ochieng]\n\nThe V60 is one of the most popular manual brewing methods because of the incredible clarity it brings out in coffee. Today we go through the precise ratio and pour intervals to master your morning brew...' },
-                    { headline: 'Perfect Milk Texturing for Silk Latte Art', hub_tag: 'Barista Skills', cover_image: 'assets/student_sarah.png', story_body: '[AUTHOR: James Kamau]\n\nPouring a perfect heart or rosetta starts with texturing your milk to a fine microfoam. We analyze the aeration depth, vortex spin, and optimal temperatures...' },
-                    { headline: 'Understanding the First Crack in Coffee Roasting', hub_tag: 'Sensory Science', cover_image: 'assets/student_sarah.png', story_body: '[AUTHOR: Sarah Wambui]\n\nThe first crack is a critical milestone during a roast. It represents the expansion of water vapor and release of gases. Let\'s delve into roast profiling...' },
-                    { headline: 'Sourcing Specialty Lot Coffees in Nyeri County', hub_tag: 'Origin Stories', cover_image: 'assets/student_david.png', story_body: '[AUTHOR: David Omondi]\n\nOur team recently traveled to Nyeri to source the finest SL-28 and SL-34 lots. Here is what makes the altitude and volcanic soil perfect...' },
-                    { headline: 'TDS Analysis and Yield Ratios for Perfect Espresso', hub_tag: 'Technique', cover_image: 'assets/tess_ochieng_realistic.png', story_body: '[AUTHOR: Esther Ochieng]\n\nGetting a balanced espresso cup requires measuring Total Dissolved Solids. Here is a step-by-step guide to calculating extraction yields...' }
-                ];
-                const { error: blogError } = await nic_supabase.from('academy_journal').insert(blogs);
-                if (blogError) throw blogError;
-
-                // 4. Seed Products
-                const products = [
-                    { item_label: 'Signature Espresso Blend', cost_kes: 2500, bean_type: 'Coffee Beans', tasting_notes: 'Dark chocolate, sweet orange, and creamy caramel finish. Perfect for espresso.', visual_asset: 'assets/tess_ochieng_realistic.png' },
-                    { item_label: 'Single Origin Kenya AA', cost_kes: 2800, bean_type: 'Coffee Beans', tasting_notes: 'Vibrant blackcurrant notes, bright winey acidity, and a clean honey finish.', visual_asset: 'assets/equipment.png' },
-                    { item_label: 'Professional V60 Brew Kit', cost_kes: 8500, bean_type: 'Brewing Equipment', tasting_notes: 'Includes Hario V60 dripper, decanter, paper filters, and a precision goose-neck kettle.', visual_asset: 'assets/equipment.png' },
-                    { item_label: 'NIC Champion Leather Apron', cost_kes: 12000, bean_type: 'Merchandise', tasting_notes: 'Handcrafted premium leather barista apron with adjustable shoulder straps and pockets.', visual_asset: 'assets/tess_ochieng_realistic.png' },
-                    { item_label: 'NIC Ceramic Cupping Spoon', cost_kes: 3500, bean_type: 'Coffee Accessories', tasting_notes: 'Official SCA cupping spoon, custom engraved logo, ergonomic ceramic balance.', visual_asset: 'assets/equipment.png' }
-                ];
-                const { error: prodError } = await nic_supabase.from('coffee_stock').insert(products);
-                if (prodError) throw prodError;
-
-                alert('Database initialized successfully with premium default data!');
-                loadDashboardData();
-            } catch (err) {
-                alert('Seeding failed: ' + err.message);
-                console.error(err);
-            } finally {
-                btn.innerText = originalText;
-                btn.disabled = false;
-            }
-        }
+        });
     </script>
 </body>
 </html>
