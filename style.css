@@ -231,7 +231,7 @@ img {
 .gallery-item.tall { grid-row: span 2; }
 
 /* Navigation */
-nav {
+#navbar {
     position: fixed;
     top: 0;
     left: 0;
@@ -245,13 +245,13 @@ nav {
     border-bottom: 1px solid rgba(49, 33, 23, 0.05);
 }
 
-nav.scrolled {
+#navbar.scrolled {
     padding: 0.8rem 0;
     background: rgba(247, 243, 239, 0.98);
     box-shadow: 0 10px 40px rgba(0,0,0,0.08);
 }
 
-nav .container {
+#navbar .container {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -1110,3 +1110,145 @@ nav .container {
     margin-bottom: 0.5rem;
     width: 80%;
 }
+
+/* Global Mobile Responsiveness Updates */
+@media (max-width: 768px) {
+    /* Layout */
+    .container {
+        padding: 0 1.5rem;
+    }
+    .section-padding {
+        padding: 4rem 0;
+    }
+    
+    /* Typography */
+    .hero h1 {
+        font-size: 2.8rem;
+    }
+    .hero p {
+        font-size: 1rem;
+        margin-bottom: 2rem;
+    }
+    
+    /* Grids */
+    .values-grid,
+    .gallery-grid,
+    .blog-grid,
+    .shop-grid,
+    .courses-grid,
+    .footer-grid,
+    .about-grid,
+    .checkout-grid,
+    .process-step {
+        grid-template-columns: 1fr !important;
+        gap: 2rem;
+    }
+    
+    /* Gallery specific */
+    .gallery-item.wide,
+    .gallery-item.tall {
+        grid-column: span 1;
+        grid-row: span 1;
+    }
+    
+    /* Navbar */
+    .nav-links {
+        width: 100%;
+        padding: 2rem;
+    }
+    
+    /* Blog specific */
+    .blog-image {
+        height: 200px;
+    }
+    
+    /* Shopping Cart */
+    .cart-flyout {
+        width: 100%;
+        right: -100%;
+    }
+}
+
+/* Public Pages Input Aesthetics */
+.search-container input::placeholder,
+.newsletter-form input::placeholder,
+#enroll-form input::placeholder,
+#enroll-form textarea::placeholder {
+    color: rgba(49, 33, 23, 0.45) !important;
+}
+
+.search-container input:focus,
+.newsletter-form input:focus,
+#enroll-form input:focus,
+#enroll-form textarea:focus,
+#enroll-form select:focus {
+    border-color: var(--secondary) !important;
+    box-shadow: 0 0 10px rgba(194, 154, 91, 0.15) !important;
+}
+
+/* Faculty Team Grid & Cards */
+.team-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2.5rem;
+    margin-top: 3rem;
+}
+
+.team-card {
+    background: var(--glass);
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+    overflow: hidden;
+    transition: var(--transition);
+}
+
+.team-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px rgba(49, 33, 23, 0.08);
+    border-color: var(--secondary);
+}
+
+.team-img-wrapper {
+    height: 350px;
+    overflow: hidden;
+    position: relative;
+}
+
+.team-img-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.team-card:hover .team-img-wrapper img {
+    transform: scale(1.08);
+}
+
+.team-info {
+    padding: 2rem;
+}
+
+.team-info span {
+    display: block;
+    font-size: 0.75rem;
+    color: var(--secondary);
+    text-transform: uppercase;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    margin-bottom: 0.5rem;
+}
+
+.team-info h4 {
+    font-size: 1.25rem;
+    color: var(--primary);
+    margin-bottom: 0.75rem;
+    font-weight: 800;
+}
+
+.team-info p {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+}
+

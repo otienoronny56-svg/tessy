@@ -7,6 +7,12 @@
     <meta name="description" content="Professional barista training, roasting science, and latte art masterclasses in Nairobi. Certified by SCA guidelines.">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script>
+        const SUPABASE_URL = "https://ouuhirckiavcvgqlpriw.supabase.co";
+        const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im91dWhpcmNraWF2Y3ZncWxwcml3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM5MTYyNDUsImV4cCI6MjA4OTQ5MjI0NX0.l5diE9bfcRQo8ZSMsAx-alG89GFifGA11hA059zDhXM";
+        const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+    </script>
     <style>
         .custom-cursor {
             width: 20px;
@@ -63,9 +69,6 @@
     </style>
 </head>
 <body>
-    <div class="preloader" id="preloader">
-        <img src="tess.jpeg" alt="Loading..." class="loader-logo">
-    </div>
     <div class="custom-cursor" id="cursor"></div>
     <div class="scroll-progress" id="progress"></div>
 
@@ -109,7 +112,7 @@
     <!-- Courses Section -->
     <section class="section-padding">
         <div class="container">
-            <div class="courses-grid">
+            <div class="courses-grid" id="courses-grid-container">
                 <div class="course-card glass reveal-scale" style="transition-delay: 0.1s;">
                     <div class="course-icon"><i class="fas fa-mug-hot"></i></div>
                     <div class="course-meta">
@@ -394,5 +397,65 @@
     </footer>
 
     <script src="script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', loadDynamicCourses);
+
+        async function loadDynamicCourses() {
+            try {
+                const { data, error } = await _supabase
+                    .from('academy_journal')
+                    .select('*')
+                    .eq('hub_tag', '[COURSE]')
+                    .order('publish_date', { ascending: true });
+
+                if (error) throw error;
+                if (data && data.length > 0) {
+                    const container = document.getElementById('courses-grid-container');
+                    if (container) {
+                        let html = '';
+                        data.forEach((post, index) => {
+                            const parts = post.story_body.split('|');
+                            const duration = parts[0] || '';
+                            const level = parts[1] || '';
+                            const price = parts[2] || '';
+                            const desc = parts[3] || '';
+                            const iconClass = parts[4] || 'fas fa-mug-hot';
+                            
+                            const delay = (0.1 + index * 0.2).toFixed(1);
+                            
+                            html += `
+                                <div class="course-card glass reveal-scale" style="transition-delay: ${delay}s; padding: ${post.cover_image ? '0 0 2.5rem 0' : '2.5rem'}; overflow: hidden; display: flex; flex-direction: column;">
+                                    ${post.cover_image ? 
+                                        `<div style="height: 200px; width: 100%; background: url('${post.cover_image}') no-repeat center center/cover; margin-bottom: 2rem; border-bottom: 1px solid var(--glass-border);"></div>
+                                         <div style="padding: 0 2.5rem; display: flex; flex-direction: column; flex: 1;">` : 
+                                        `<div class="course-icon"><i class="${iconClass}"></i></div>
+                                         <div style="display: flex; flex-direction: column; flex: 1;">`
+                                    }
+                                        <div class="course-meta">
+                                            <span class="meta-badge">${duration}</span>
+                                            <span class="meta-badge">${level}</span>
+                                        </div>
+                                        <h3 style="font-size: 1.5rem; margin-bottom: 1rem;">${post.headline}</h3>
+                                        <p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 1.5rem; flex: 1;">${desc}</p>
+                                        <div class="course-price" style="font-size: 1.5rem; font-weight: 800; color: var(--primary); margin: 1.5rem 0;">KES ${price}</div>
+                                        <a href="contact.html" class="btn" style="margin-top: auto; width: 100%; text-align: center;">Enroll Now</a>
+                                    </div>
+                                </div>
+                            `;
+                        });
+                        container.innerHTML = html;
+                        
+                        // Re-trigger scroll reveal if function exists
+                        if (typeof revealOnScroll === 'function') {
+                            revealOnScroll();
+                        }
+                    }
+                }
+            } catch (err) {
+                console.error("Error loading dynamic courses:", err);
+            }
+        }
+    </script>
 </body>
 </html>
+

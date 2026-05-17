@@ -13,11 +13,12 @@
         const nic_supabase = window.supabase.createClient(NIC_URL, NIC_KEY);
     </script>
     <style>
+        body { background: #0a0807; display: flex; min-height: 100vh; color: #fff; }
         .admin-sidebar { width: 280px; background: #110d0a; border-right: 1px solid rgba(255,255,255,0.05); padding: 2.5rem; display: flex; flex-direction: column; position: fixed; height: 100vh; z-index: 100; }
         .admin-nav-link { display: flex; align-items: center; gap: 1rem; padding: 1rem; color: #888; text-decoration: none; border-radius: 12px; margin-bottom: 0.5rem; transition: 0.3s; }
         .admin-nav-link:hover, .admin-nav-link.active { background: rgba(193, 154, 107, 0.1); color: #c29a5b; }
         .admin-main { margin-left: 280px; flex: 1; padding: 4rem; }
-
+        
         /* Mobile Admin Fix */
         @media (max-width: 992px) {
             .admin-sidebar { width: 100%; height: auto; position: relative; padding: 1.5rem; border-right: none; border-bottom: 1px solid rgba(255,255,255,0.05); }
@@ -29,7 +30,10 @@
         }
         .manager-grid { display: grid; grid-template-columns: 1.2fr 1fr; gap: 4rem; }
         .manager-card { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.05); padding: 3rem; border-radius: 20px; }
-        input, textarea, select { width: 100%; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); padding: 1rem; border-radius: 8px; color: #fff; margin-bottom: 1.5rem; outline: none; }
+        input, textarea, select { width: 100%; background: #1a1512; border: 1.5px solid rgba(255,255,255,0.15); padding: 1.2rem; border-radius: 10px; color: #ffffff; margin-bottom: 1.5rem; outline: none; transition: var(--transition); }
+        input:focus, textarea:focus, select:focus { border-color: var(--secondary); background: #261f1a; box-shadow: 0 0 10px rgba(194, 154, 91, 0.25); }
+        select option { background-color: #110d0a; color: #fff; }
+        ::placeholder { color: rgba(255,255,255,0.4); }
         
         .upload-area { border: 2px dashed rgba(255,255,255,0.1); padding: 2rem; border-radius: 12px; text-align: center; cursor: pointer; transition: var(--transition); margin-bottom: 1.5rem; }
         .upload-area:hover { border-color: var(--secondary); background: rgba(193, 154, 107, 0.05); }
@@ -51,6 +55,12 @@
             </a>
             <a href="admin-blogs.html" class="admin-nav-link active">
                 <i class="fas fa-pen-nib"></i> Blog Posts
+            </a>
+            <a href="admin-courses.html" class="admin-nav-link">
+                <i class="fas fa-graduation-cap"></i> Manage Courses
+            </a>
+            <a href="admin-faculty.html" class="admin-nav-link">
+                <i class="fas fa-users-cog"></i> Manage Faculty
             </a>
             <a href="#" class="admin-nav-link">
                 <i class="fas fa-users"></i> Students
@@ -91,8 +101,16 @@
                         <img id="preview-img" class="upload-preview">
                     </div>
 
+                    <label style="font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase;">Author Name</label>
+                    <select id="blog-author" style="margin-bottom: 1.5rem;">
+                        <option value="Esther Ochieng">Esther Ochieng</option>
+                        <option value="James Kamau">James Kamau</option>
+                        <option value="Sarah Wambui">Sarah Wambui</option>
+                        <option value="David Omondi">David Omondi</option>
+                    </select>
+
                     <label style="font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase;">Story Body</label>
-                    <textarea placeholder="Write your insight..." rows="6" required></textarea>
+                    <textarea id="blog-body" placeholder="Write your insight..." rows="6" required></textarea>
                     
                     <button type="submit" class="btn" style="width: 100%;">Publish to Journal</button>
                 </form>
@@ -134,7 +152,8 @@
                 const { data, error } = await nic_supabase.from('academy_journal').select('*').order('publish_date', { ascending: false });
                 if (error) throw error;
                 let html = '';
-                data.forEach(post => {
+                const blogs = data.filter(post => post.hub_tag !== '[FACULTY]' && post.hub_tag !== '[COURSE]');
+                blogs.forEach(post => {
                     html += `
                         <div style="display: flex; justify-content: space-between; align-items: center; padding: 1rem; background: rgba(255,255,255,0.03); border-radius: 12px; margin-bottom: 1rem;">
                             <div style="display: flex; gap: 1rem; align-items: center;">
@@ -173,10 +192,14 @@
 
                 const title = e.target.querySelectorAll('input')[0].value;
                 const tag = e.target.querySelectorAll('input')[1].value;
-                const content = e.target.querySelector('textarea').value;
+                const author = document.getElementById('blog-author').value;
+                const content = document.getElementById('blog-body').value;
+
+                // Concatenate the author metadata with the story body text
+                const combinedBody = `[AUTHOR: ${author}]\n\n${content}`;
 
                 const { error: dbError } = await nic_supabase.from('academy_journal').insert([
-                    { headline: title, hub_tag: tag, cover_image: publicUrl, story_body: content }
+                    { headline: title, hub_tag: tag, cover_image: publicUrl, story_body: combinedBody }
                 ]);
 
                 if (dbError) throw dbError;
@@ -201,3 +224,4 @@
     </script>
 </body>
 </html>
+

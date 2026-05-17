@@ -6,6 +6,12 @@
     <title>The Secret to the Perfect V60 | Nairobi Institute of Coffee</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script>
+        const SUPABASE_URL = "https://ouuhirckiavcvgqlpriw.supabase.co";
+        const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im91dWhpcmNraWF2Y3ZncWxwcml3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM5MTYyNDUsImV4cCI6MjA4OTQ5MjI0NX0.l5diE9bfcRQo8ZSMsAx-alG89GFifGA11hA059zDhXM";
+        const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+    </script>
     <style>
         .post-header {
             height: 60vh;
@@ -85,9 +91,6 @@
     </style>
 </head>
 <body>
-    <div class="preloader" id="preloader">
-        <img src="tess.jpeg" alt="Loading..." class="loader-logo">
-    </div>
     <div class="custom-cursor" id="cursor"></div>
     <div class="scroll-progress" id="progress"></div>
 
@@ -107,18 +110,18 @@
     </nav>
 
     <header class="post-header">
-        <div class="post-header-bg"></div>
+        <div class="post-header-bg" id="post-bg"></div>
         <div class="container" style="position: relative;">
-            <span class="section-tag reveal-up active" style="background: var(--secondary); color: #fff;">Brewing Tips</span>
-            <h1 class="reveal-up active" style="font-size: 3.5rem; margin-top: 1rem;">The Secret to the Perfect <br> V60 Pour-Over</h1>
+            <span class="section-tag reveal-up active" id="post-tag" style="background: var(--secondary); color: #fff;">Brewing Tips</span>
+            <h1 class="reveal-up active" id="post-title" style="font-size: 3.5rem; margin-top: 1rem;">The Secret to the Perfect <br> V60 Pour-Over</h1>
             <div class="reveal-up active" style="margin-top: 2rem; color: rgba(255,255,255,0.7);">
-                <span>By Esther Ochieng</span> &bull; <span>May 15, 2026</span> &bull; <span>6 min read</span>
+                <span id="post-author-name">By Esther Ochieng</span> &bull; <span id="post-date">May 15, 2026</span> &bull; <span>6 min read</span>
             </div>
         </div>
     </header>
 
     <article class="post-container">
-        <div class="post-content">
+        <div class="post-content" id="post-body">
             <p>The V60 is perhaps the most iconic pour-over brewer in the specialty coffee world. Its 60-degree angle and large exit hole allow for a clean, vibrant cup that highlights the delicate acidity of Kenyan coffees. However, mastering it requires more than just pouring water.</p>
 
             <h2>1. The Grind Size</h2>
@@ -138,10 +141,10 @@
         </div>
 
         <div class="author-box">
-            <img src="tess.jpeg" alt="Esther Ochieng" class="author-img">
+            <img src="tess.jpeg" id="author-box-img" alt="Author" class="author-img">
             <div>
                 <h4 style="color: var(--primary); margin-bottom: 0.5rem;">About the Author</h4>
-                <p style="font-size: 0.9rem; margin: 0;">Esther Ochieng is a two-time Kenyan Barista Champion and the founder of the Nairobi Institute of Coffee. She has dedicated her career to elevating coffee standards in East Africa.</p>
+                <p style="font-size: 0.9rem; margin: 0;" id="author-box-bio">Esther Ochieng is a two-time Kenyan Barista Champion and the founder of the Nairobi Institute of Coffee. She has dedicated her career to elevating coffee standards in East Africa.</p>
             </div>
         </div>
 
@@ -191,5 +194,114 @@
     </footer>
 
     <script src="script.js"></script>
+    <script>
+        const authorProfiles = {
+            "Esther Ochieng": {
+                img: "tess.jpeg",
+                bio: "Esther Ochieng is a two-time Kenyan Barista Champion and the founder of the Nairobi Institute of Coffee. She has dedicated her career to elevating coffee standards in East Africa."
+            },
+            "Tess Ochieng": {
+                img: "tess.jpeg",
+                bio: "Esther Ochieng is a two-time Kenyan Barista Champion and the founder of the Nairobi Institute of Coffee. She has dedicated her career to elevating coffee standards in East Africa."
+            },
+            "James Kamau": {
+                img: "assets/student_james.png",
+                bio: "James Kamau is the Lead Barista Instructor at the Nairobi Institute of Coffee, bringing 7+ years of elite training and competition expertise."
+            },
+            "Sarah Wambui": {
+                img: "assets/student_sarah.png",
+                bio: "Sarah Wambui leads Roasting & Sensory Science, specializing in cup quality profiling and green bean chemical evaluation."
+            },
+            "David Omondi": {
+                img: "assets/student_david.png",
+                bio: "David Omondi is a specialized Manual Brewing and Extraction Coach, dedicated to perfecting TDS ratios and manual recipes."
+            }
+        };
+
+        const urlParams = new URLSearchParams(window.location.search);
+        const postId = urlParams.get('id');
+
+        if (postId) {
+            loadBlogPost(postId);
+        }
+
+        async function loadBlogPost(id) {
+            try {
+                const { data, error } = await _supabase
+                    .from('academy_journal')
+                    .select('*')
+                    .eq('id', id)
+                    .single();
+
+                if (error) throw error;
+                if (data) {
+                    document.title = data.headline + ' | Nairobi Institute of Coffee';
+                    
+                    // Update header background
+                    const headerBg = document.getElementById('post-bg');
+                    if (headerBg) {
+                        headerBg.style.backgroundImage = `url('${data.cover_image}')`;
+                    }
+                    
+                    // Update metadata
+                    const postTag = document.getElementById('post-tag');
+                    if (postTag) postTag.innerText = data.hub_tag || 'Specialty Coffee';
+                    
+                    const postTitle = document.getElementById('post-title');
+                    if (postTitle) postTitle.innerText = data.headline;
+                    
+                    if (data.publish_date) {
+                        const dateObj = new Date(data.publish_date);
+                        const postDate = document.getElementById('post-date');
+                        if (postDate) {
+                            postDate.innerText = dateObj.toLocaleDateString('en-US', {
+                                year: 'numeric',
+                                month: 'long',
+                                day: 'numeric'
+                            });
+                        }
+                    }
+                    
+                    // Parse author tag if present
+                    let authorName = "Esther Ochieng";
+                    let rawBody = data.story_body || '';
+                    if (rawBody.startsWith('[AUTHOR:')) {
+                        const match = rawBody.match(/^\[AUTHOR:\s*([^\]]+)\]/);
+                        if (match) {
+                            authorName = match[1];
+                            rawBody = rawBody.replace(/^\[AUTHOR:\s*[^\]]+\]\s*/, '');
+                        }
+                    }
+
+                    // Update author metadata at the top
+                    const authorMeta = document.getElementById('post-author-name');
+                    if (authorMeta) authorMeta.innerText = `By ${authorName}`;
+
+                    // Update author box details
+                    const profile = authorProfiles[authorName] || {
+                        img: "tess.jpeg",
+                        bio: `${authorName} is an active educator and contributor at the Nairobi Institute of Coffee, helping students master the art of specialty coffee.`
+                    };
+                    const authorImg = document.getElementById('author-box-img');
+                    if (authorImg) authorImg.src = profile.img;
+                    const authorBio = document.getElementById('author-box-bio');
+                    if (authorBio) authorBio.innerText = profile.bio;
+
+                    // Format and populate story body text (support multiple paragraphs)
+                    const postBody = document.getElementById('post-body');
+                    if (postBody && rawBody) {
+                        const formattedBody = rawBody
+                            .split('\n\n')
+                            .map(para => `<p style="margin-bottom: 2rem; color: var(--text-muted); font-size: 1.1rem; line-height: 1.8;">${para.replace(/\n/g, '<br>')}</p>`)
+                            .join('');
+                        postBody.innerHTML = formattedBody;
+                    }
+                }
+            } catch (err) {
+                console.error("Error loading blog post:", err);
+            }
+        }
+    </script>
 </body>
 </html>
+

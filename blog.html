@@ -14,9 +14,6 @@
     </script>
 </head>
 <body>
-    <div class="preloader" id="preloader">
-        <img src="tess.jpeg" alt="Loading..." class="loader-logo">
-    </div>
     <div class="custom-cursor" id="cursor"></div>
 
     <nav id="navbar">
@@ -52,7 +49,7 @@
                     <div style="position: relative;">
                         <i class="fas fa-search" style="position: absolute; left: 1.5rem; top: 50%; transform: translateY(-50%); color: var(--secondary);"></i>
                         <input type="text" id="blog-search" placeholder="Search insights, brewing tips, or news..." 
-                            style="width: 100%; padding: 1.2rem 1.2rem 1.2rem 4rem; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); border-radius: 50px; color: #fff; outline: none; transition: var(--transition);">
+                            style="width: 100%; padding: 1.2rem 1.2rem 1.2rem 4rem; background: #ffffff; border: 1.5px solid rgba(49, 33, 23, 0.15); border-radius: 50px; color: var(--primary); outline: none; transition: var(--transition); box-shadow: 0 4px 20px rgba(49, 33, 23, 0.05);">
                     </div>
                 </div>
             </div>
@@ -108,7 +105,7 @@
                 blogGrid.innerHTML = '<p style="color: #ff4d4d; text-align: center; width: 100%;">Failed to load journal.</p>';
                 return;
             }
-            allBlogs = data;
+            allBlogs = data.filter(post => post.hub_tag !== '[FACULTY]' && post.hub_tag !== '[COURSE]');
             renderBlogs(allBlogs);
         }
 
@@ -129,7 +126,7 @@
                             <span class="section-tag" style="font-size: 0.6rem;">${post.hub_tag}</span>
                             <h3 style="margin: 1rem 0; font-size: 1.2rem; line-height: 1.4;">${post.headline}</h3>
                             <p style="font-size: 0.85rem; color: var(--text-muted); display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; margin-bottom: 1.5rem;">${post.story_body}</p>
-                            <a href="#" class="text-link" style="font-size: 0.8rem; letter-spacing: 2px;">READ STORY <i class="fas fa-arrow-right"></i></a>
+                            <a href="post.html?id=${post.id}" class="text-link" style="font-size: 0.8rem; letter-spacing: 2px;">READ STORY <i class="fas fa-arrow-right"></i></a>
                         </div>
                     </article>
                 `;
@@ -140,12 +137,13 @@
         searchInput.oninput = (e) => {
             const term = e.target.value.toLowerCase();
             const filtered = allBlogs.filter(b => 
-                b.headline.toLowerCase().includes(term) || 
-                b.hub_tag.toLowerCase().includes(term) ||
-                b.story_body.toLowerCase().includes(term)
+                (b.headline || '').toLowerCase().includes(term) || 
+                (b.hub_tag || '').toLowerCase().includes(term) ||
+                (b.story_body || '').toLowerCase().includes(term)
             );
             renderBlogs(filtered);
         };
     </script>
 </body>
 </html>
+

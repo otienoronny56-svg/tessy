@@ -14,9 +14,6 @@
     </script>
 </head>
 <body>
-    <div class="preloader" id="preloader">
-        <img src="tess.jpeg" alt="Loading..." class="loader-logo">
-    </div>
     <div class="custom-cursor" id="cursor"></div>
     <div class="scroll-progress" id="progress"></div>
 
@@ -76,7 +73,7 @@
                     <div style="position: relative;">
                         <i class="fas fa-search" style="position: absolute; left: 1.5rem; top: 50%; transform: translateY(-50%); color: var(--secondary);"></i>
                         <input type="text" id="shop-search" placeholder="Search by roast, origin or name..." 
-                            style="width: 100%; padding: 1.2rem 1.2rem 1.2rem 4rem; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); border-radius: 50px; color: #fff; outline: none; transition: var(--transition);">
+                            style="width: 100%; padding: 1.2rem 1.2rem 1.2rem 4rem; background: #ffffff; border: 1.5px solid rgba(49, 33, 23, 0.15); border-radius: 50px; color: var(--primary); outline: none; transition: var(--transition); box-shadow: 0 4px 20px rgba(49, 33, 23, 0.05);">
                     </div>
                 </div>
             </div>
@@ -226,9 +223,9 @@
         searchInput.oninput = (e) => {
             const term = e.target.value.toLowerCase();
             const filtered = allProducts.filter(p => 
-                p.item_label.toLowerCase().includes(term) || 
-                p.bean_type.toLowerCase().includes(term) ||
-                p.tasting_notes.toLowerCase().includes(term)
+                (p.item_label || '').toLowerCase().includes(term) || 
+                (p.bean_type || '').toLowerCase().includes(term) ||
+                (p.tasting_notes || '').toLowerCase().includes(term)
             );
             renderProducts(filtered);
         };
@@ -260,3 +257,4 @@
     </script>
 </body>
 </html>
+

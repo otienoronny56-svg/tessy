@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Manage Products | NIC Admin</title>
+    <title>Manage Faculty | NIC Admin</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -13,32 +13,31 @@
         const nic_supabase = window.supabase.createClient(NIC_URL, NIC_KEY);
     </script>
     <style>
-        :root { --sidebar-width: 280px; }
-        body { background: #0a0807; display: flex; min-height: 100vh; }
+        body { background: #0a0807; display: flex; min-height: 100vh; color: #fff; }
         .admin-sidebar { width: 280px; background: #110d0a; border-right: 1px solid rgba(255,255,255,0.05); padding: 2.5rem; display: flex; flex-direction: column; position: fixed; height: 100vh; z-index: 100; }
         .admin-nav-link { display: flex; align-items: center; gap: 1rem; padding: 1rem; color: #888; text-decoration: none; border-radius: 12px; margin-bottom: 0.5rem; transition: 0.3s; }
         .admin-nav-link:hover, .admin-nav-link.active { background: rgba(193, 154, 107, 0.1); color: #c29a5b; }
         .admin-main { margin-left: 280px; flex: 1; padding: 4rem; }
-
+        
         /* Mobile Admin Fix */
         @media (max-width: 992px) {
             .admin-sidebar { width: 100%; height: auto; position: relative; padding: 1.5rem; border-right: none; border-bottom: 1px solid rgba(255,255,255,0.05); }
             .admin-nav { display: flex; overflow-x: auto; gap: 1rem; margin-bottom: 0; }
             .admin-nav-link { margin-bottom: 0; white-space: nowrap; padding: 0.8rem 1.2rem; }
             .admin-main { margin-left: 0; padding: 2rem; }
-            .product-manager-grid, .manager-grid { grid-template-columns: 1fr; gap: 2rem; }
+            .manager-grid { grid-template-columns: 1fr; gap: 2rem; }
             .admin-logo { margin-bottom: 1.5rem !important; }
         }
+        .manager-grid { display: grid; grid-template-columns: 1.2fr 1fr; gap: 4rem; }
         .manager-card { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.05); padding: 3rem; border-radius: 20px; }
         input, textarea, select { width: 100%; background: #1a1512; border: 1.5px solid rgba(255,255,255,0.15); padding: 1.2rem; border-radius: 10px; color: #ffffff; margin-bottom: 1.5rem; outline: none; transition: var(--transition); }
         input:focus, textarea:focus, select:focus { border-color: var(--secondary); background: #261f1a; box-shadow: 0 0 10px rgba(194, 154, 91, 0.25); }
         select option { background-color: #110d0a; color: #fff; }
         ::placeholder { color: rgba(255,255,255,0.4); }
         
-        /* Upload Area */
         .upload-area { border: 2px dashed rgba(255,255,255,0.1); padding: 2rem; border-radius: 12px; text-align: center; cursor: pointer; transition: var(--transition); margin-bottom: 1.5rem; }
         .upload-area:hover { border-color: var(--secondary); background: rgba(193, 154, 107, 0.05); }
-        .upload-preview { width: 100%; height: 150px; border-radius: 8px; object-fit: cover; margin-top: 1rem; display: none; }
+        .upload-preview { width: 100%; height: 200px; border-radius: 8px; object-fit: cover; margin-top: 1rem; display: none; }
     </style>
 </head>
 <body>
@@ -51,7 +50,7 @@
             <a href="admin-dashboard.html" class="admin-nav-link">
                 <i class="fas fa-chart-line"></i> Overview
             </a>
-            <a href="admin-products.html" class="admin-nav-link active">
+            <a href="admin-products.html" class="admin-nav-link">
                 <i class="fas fa-shopping-bag"></i> Products
             </a>
             <a href="admin-blogs.html" class="admin-nav-link">
@@ -60,11 +59,8 @@
             <a href="admin-courses.html" class="admin-nav-link">
                 <i class="fas fa-graduation-cap"></i> Manage Courses
             </a>
-            <a href="admin-faculty.html" class="admin-nav-link">
+            <a href="admin-faculty.html" class="admin-nav-link active">
                 <i class="fas fa-users-cog"></i> Manage Faculty
-            </a>
-            <a href="#" class="admin-nav-link">
-                <i class="fas fa-users"></i> Students
             </a>
             <div style="margin-top: auto; padding-top: 2rem; border-top: 1px solid rgba(255,255,255,0.05);">
                 <p style="font-size: 0.6rem; color: #555; text-transform: uppercase; margin-bottom: 1rem; letter-spacing: 1px;">Website Shortcuts</p>
@@ -82,45 +78,36 @@
     </div>
 
     <main class="admin-main">
-        <h1 style="margin-bottom: 3rem;">Product Management</h1>
+        <h1 style="margin-bottom: 3rem;">Faculty Management</h1>
 
-        <div class="product-manager-grid">
+        <div class="manager-grid">
             <div class="manager-card">
-                <h3>Add New Item</h3>
-                <form id="add-product-form">
-                    <label style="font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase;">Product Name</label>
-                    <input type="text" placeholder="e.g. Arabica Dark Roast" required>
+                <h3>Add Faculty Member</h3>
+                <form id="add-faculty-form">
+                    <label style="font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase;">Full Name</label>
+                    <input type="text" id="faculty-name" placeholder="e.g. James Kamau" required>
                     
-                    <label style="font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase;">Price (KES)</label>
-                    <input type="number" placeholder="2500" required>
+                    <label style="font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase;">Professional Title / Role</label>
+                    <input type="text" id="faculty-role" placeholder="e.g. Lead Barista Instructor" required>
                     
-                    <label style="font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase;">Category</label>
-                    <select>
-                        <option>Coffee Beans</option>
-                        <option>Coffee Machines & Grinders</option>
-                        <option>Brewing Equipment</option>
-                        <option>Merchandise</option>
-                        <option>Coffee Accessories</option>
-                    </select>
-
-                    <label style="font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase;">Product Image</label>
+                    <label style="font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase;">Profile Photo</label>
                     <div class="upload-area" id="drop-zone">
-                        <i class="fas fa-cloud-upload-alt" style="font-size: 2rem; color: var(--secondary); margin-bottom: 1rem;"></i>
-                        <p style="font-size: 0.8rem; color: var(--text-muted);">Click or Drag Photo Here</p>
+                        <i class="fas fa-camera" style="font-size: 2rem; color: var(--secondary); margin-bottom: 1rem;"></i>
+                        <p style="font-size: 0.85rem; color: var(--text-muted);">Drop Profile Photo Here</p>
                         <input type="file" id="file-input" accept="image/*" style="display: none;">
                         <img id="preview-img" class="upload-preview">
                     </div>
 
-                    <label style="font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase;">Description</label>
-                    <textarea placeholder="Describe flavor notes..." rows="3"></textarea>
+                    <label style="font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase;">Short Bio / Credentials</label>
+                    <textarea id="faculty-bio" placeholder="e.g. Certified SCA Professional with 7+ years of experience training competition-level baristas..." rows="5" required></textarea>
                     
-                    <button type="submit" class="btn" style="width: 100%;">List Product for Sale</button>
+                    <button type="submit" class="btn" style="width: 100%;">Add to Faculty</button>
                 </form>
             </div>
 
             <div class="manager-card" style="background: transparent;">
-                <h3>Current Collection</h3>
-                <div style="margin-top: 2rem;" id="current-collection"></div>
+                <h3>Current Faculty List</h3>
+                <div style="margin-top: 2rem;" id="faculty-list"></div>
             </div>
         </div>
     </main>
@@ -128,13 +115,12 @@
     <script>
         if (localStorage.getItem('nic_admin_auth') !== 'true') { window.location.href = 'admin-login.html'; }
 
-        const productList = document.getElementById('current-collection');
-        const addForm = document.getElementById('add-product-form');
+        const facultyList = document.getElementById('faculty-list');
+        const addForm = document.getElementById('add-faculty-form');
         const fileInput = document.getElementById('file-input');
         const dropZone = document.getElementById('drop-zone');
         const previewImg = document.getElementById('preview-img');
 
-        // Drag & Drop Preview
         dropZone.onclick = () => fileInput.click();
         fileInput.onchange = () => {
             const file = fileInput.files[0];
@@ -148,82 +134,92 @@
             }
         };
 
-        loadProducts();
+        loadFaculty();
 
-        async function loadProducts() {
+        async function loadFaculty() {
             try {
-                const { data, error } = await nic_supabase.from('coffee_stock').select('*').order('added_on', { ascending: false });
+                const { data, error } = await nic_supabase
+                    .from('academy_journal')
+                    .select('*')
+                    .eq('hub_tag', '[FACULTY]')
+                    .order('publish_date', { ascending: false });
+
                 if (error) throw error;
                 let html = '';
-                data.forEach(product => {
+                data.forEach(post => {
+                    const parts = post.story_body.split('|');
+                    const role = parts[0] || 'Instructor';
                     html += `
-                        <div style="display: flex; justify-content: space-between; align-items: center; padding: 1rem; background: rgba(255,255,255,0.03); border-radius: 12px; margin-bottom: 1rem;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; padding: 1.2rem; background: rgba(255,255,255,0.03); border-radius: 12px; margin-bottom: 1rem; border: 1px solid rgba(255,255,255,0.05);">
                             <div style="display: flex; gap: 1rem; align-items: center;">
-                                <img src="${product.visual_asset}" style="width: 40px; height: 40px; border-radius: 4px; object-fit: cover;">
+                                <img src="${post.cover_image}" style="width: 50px; height: 50px; border-radius: 50%; object-fit: cover; border: 1.5px solid var(--secondary);">
                                 <div>
-                                    <h5 style="margin: 0;">${product.item_label}</h5>
-                                    <span style="font-size: 0.7rem; color: var(--secondary);">KES ${product.cost_kes.toLocaleString()}</span>
+                                    <h5 style="margin: 0; font-size: 0.9rem; color: #fff;">${post.headline}</h5>
+                                    <span style="font-size: 0.7rem; color: var(--secondary); font-weight: 600;">${role}</span>
                                 </div>
                             </div>
-                            <i class="fas fa-trash" onclick="deleteProduct('${product.id}')" style="cursor: pointer; color: #ff4d4d;"></i>
+                            <i class="fas fa-trash" onclick="deleteFaculty('${post.id}')" style="cursor: pointer; color: #ff4d4d; padding: 0.5rem; transition: 0.3s;" onmouseover="this.style.opacity=0.7" onmouseout="this.style.opacity=1"></i>
                         </div>
                     `;
                 });
-                productList.innerHTML = html || '<p style="color: var(--text-muted); font-size: 0.8rem;">Empty collection.</p>';
+                facultyList.innerHTML = html || '<p style="color: var(--text-muted); font-size: 0.85rem;">No dynamic faculty members added yet. Showing default static roster on public site.</p>';
             } catch (err) { console.error(err); }
         }
 
         addForm.addEventListener('submit', async (e) => {
             e.preventDefault();
             const btn = e.target.querySelector('button');
-            btn.innerText = 'Uploading...';
+            btn.innerText = 'Adding...';
             btn.disabled = true;
 
             try {
                 const file = fileInput.files[0];
-                if (!file) throw new Error("Please select an image.");
+                if (!file) throw new Error("Please select a profile photo.");
 
-                // 1. Upload to Supabase Storage
-                const fileName = `${Date.now()}_${file.name}`;
+                const fileName = `faculty_${Date.now()}_${file.name}`;
                 const { data: uploadData, error: uploadError } = await nic_supabase.storage
                     .from('media')
                     .upload(fileName, file);
 
                 if (uploadError) throw uploadError;
 
-                // 2. Get Public URL
                 const { data: { publicUrl } } = nic_supabase.storage.from('media').getPublicUrl(fileName);
 
-                // 3. Save to Database
-                const name = e.target.querySelectorAll('input')[0].value;
-                const price = e.target.querySelectorAll('input')[1].value;
-                const category = e.target.querySelector('select').value;
-                const desc = e.target.querySelector('textarea').value;
+                const name = document.getElementById('faculty-name').value;
+                const role = document.getElementById('faculty-role').value;
+                const bio = document.getElementById('faculty-bio').value;
+                
+                // Polymorphic storage: store role and bio separated by "|"
+                const combinedBody = `${role}|${bio}`;
 
-                const { error: dbError } = await nic_supabase.from('coffee_stock').insert([
-                    { item_label: name, cost_kes: parseInt(price), bean_type: category, tasting_notes: desc, visual_asset: publicUrl }
+                const { error: dbError } = await nic_supabase.from('academy_journal').insert([
+                    { 
+                        headline: name, 
+                        hub_tag: '[FACULTY]', 
+                        cover_image: publicUrl, 
+                        story_body: combinedBody 
+                    }
                 ]);
 
                 if (dbError) throw dbError;
                 addForm.reset();
                 previewImg.style.display = 'none';
-                loadProducts();
-                alert('Success! Product listed.');
+                loadFaculty();
+                alert('Success! Faculty member added.');
             } catch (err) {
                 alert('Error: ' + err.message);
             } finally {
-                btn.innerText = 'List Product for Sale';
+                btn.innerText = 'Add to Faculty';
                 btn.disabled = false;
             }
         });
 
-        window.deleteProduct = async (id) => {
-            if (confirm('Delete this item?')) {
-                const { error } = await nic_supabase.from('coffee_stock').delete().eq('id', id);
-                if (error) alert(error.message); else loadProducts();
+        window.deleteFaculty = async (id) => {
+            if (confirm('Delete this faculty member?')) {
+                const { error } = await nic_supabase.from('academy_journal').delete().eq('id', id);
+                if (error) alert(error.message); else loadFaculty();
             }
         };
     </script>
 </body>
 </html>
-

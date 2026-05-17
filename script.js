@@ -1,13 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const preloader = document.getElementById('preloader');
     const navbar = document.getElementById('navbar');
-    
-    // Hide Preloader
-    window.addEventListener('load', () => {
-        setTimeout(() => {
-            preloader.classList.add('fade-out');
-        }, 500);
-    });
     const reveals = document.querySelectorAll('.reveal, [class*="reveal-"]');
     const cursor = document.getElementById('cursor');
     const progress = document.getElementById('progress');
