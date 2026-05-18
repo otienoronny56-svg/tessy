@@ -1946,6 +1946,16 @@ img {
         font-size: 0.65rem !important;
         padding: 0.35rem 0.75rem !important;
     }
+
+    /* Snug, professional layout padding for mobile screens */
+    .section-padding {
+        padding: 3.5rem 0 !important;
+    }
+
+    /* Elite subpage spacing: tightens space between header and main content */
+    .hero + .section-padding {
+        padding-top: 1.2rem !important;
+    }
 }
 
 /* ==========================================
