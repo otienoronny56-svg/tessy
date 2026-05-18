@@ -1663,6 +1663,21 @@ img {
     transition: none !important; /* Prevents the sidebar from "jumping" or flashing during tab changes */
 }
 
+/* Custom Premium Sleek Scrollbar for Admin Sidebar */
+.admin-body .admin-sidebar::-webkit-scrollbar {
+    width: 5px;
+}
+.admin-body .admin-sidebar::-webkit-scrollbar-track {
+    background: transparent;
+}
+.admin-body .admin-sidebar::-webkit-scrollbar-thumb {
+    background: rgba(193, 154, 107, 0.25) !important;
+    border-radius: 10px;
+}
+.admin-body .admin-sidebar::-webkit-scrollbar-thumb:hover {
+    background: rgba(193, 154, 107, 0.5) !important;
+}
+
 /* Standardizes the content area next to the fixed sidebar */
 .admin-main {
     margin-left: 260px !important; 
