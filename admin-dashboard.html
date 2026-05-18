@@ -213,7 +213,9 @@
                 // 3. Fetch Blogs Count
                 const { count: blogCount, error: blogError } = await nic_supabase
                     .from('academy_journal')
-                    .select('*', { count: 'exact', head: true });
+                    .select('*', { count: 'exact', head: true })
+                    .not('hub_tag', 'eq', '[FACULTY]')
+                    .not('hub_tag', 'eq', '[COURSE]');
 
                 if (blogError) throw blogError;
 
