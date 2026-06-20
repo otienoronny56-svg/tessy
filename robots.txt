@@ -8,6 +8,8 @@ Disallow: /admin-courses.html
 Disallow: /admin-faculty.html
 Disallow: /admin-login.html
 Disallow: /admin-products.html
+Disallow: /admin-students.html
+Disallow: /admin-guide.html
 Disallow: /checkout.html
 
 Sitemap: https://nairobiinstituteofcoffee.co.ke/sitemap.xml
