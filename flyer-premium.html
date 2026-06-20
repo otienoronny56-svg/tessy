@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nairobi Institute of Coffee | Premium Layout</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --nci-green: #2a3b2c;
+            --nci-green-dark: #1f2b20;
+            --nci-gold: #c5a059;
+            --nci-cream: #f4f1ea;
+            --nci-black: #222222;
+            --nci-text: #4a4a4a;
+        }
+
+        body {
+            margin: 0;
+            padding: 2rem 0;
+            background-color: #e0e0e0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2rem;
+            font-family: 'Montserrat', sans-serif;
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+        }
+
+        /* Print Styles */
+        @media print {
+            @page {
+                size: A4 landscape;
+                margin: 0;
+            }
+            body {
+                margin: 0;
+                padding: 0;
+                background-color: transparent;
+                display: block;
+            }
+            .flyer-container {
+                width: 297mm;
+                height: 210mm;
+                margin: 0;
+                box-shadow: none;
+                page-break-after: always;
+                page-break-inside: avoid;
+            }
+        }
+
+        .flyer-container {
+            width: 297mm;
+            height: 210mm;
+            background-color: var(--nci-cream);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+            position: relative;
+            overflow: hidden;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+        }
+
+        /* --- Column 1: The Mission Wall (Inside Left) --- */
+        .col-mission {
+            background-color: var(--nci-cream);
+            padding: 4rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            position: relative;
+            border-right: 1px dashed rgba(0,0,0,0.2);
+        }
+
+        .mission-title {
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: var(--nci-black);
+            letter-spacing: 3px;
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .mission-icon {
+            color: var(--nci-gold);
+            font-size: 1.2rem;
+        }
+
+        .mission-text {
+            font-size: 1.2rem;
+            color: var(--nci-text);
+            line-height: 2;
+            font-weight: 500;
+            margin-bottom: 3rem;
+        }
+
+        /* --- Column 2: The Feature Wall & Desk (Inside Right) --- */
+        .col-feature {
+            background-color: var(--nci-green);
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            padding-top: 3rem;
+            box-shadow: inset 0 0 80px rgba(0,0,0,0.6);
+            z-index: 2;
+        }
+
+        /* Hanging Lights */
+        .hanging-light {
+            position: absolute;
+            top: -20px;
+            width: 2px;
+            height: 100px;
+            background-color: #111;
+            z-index: 5;
+        }
+        .hanging-light::after {
+            content: '';
+            position: absolute;
+            bottom: -30px;
+            left: -14px;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(255,255,255,0.9) 0%, rgba(197,160,89,0.6) 40%, transparent 80%);
+            border: 1px solid rgba(255,255,255,0.2);
+            box-shadow: 0 0 40px 15px rgba(197, 160, 89, 0.5);
+        }
+        
+        .light-1 { left: 20%; height: 140px; }
+        .light-2 { left: 50%; height: 90px; }
+        .light-3 { left: 80%; height: 160px; }
+
+        /* Logo Area */
+        .feature-logo-wrap {
+            width: 130px;
+            height: 130px;
+            border-radius: 50%;
+            background-color: var(--nci-cream);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.4);
+            position: relative;
+            z-index: 3;
+        }
+        
+        .feature-logo-wrap img {
+            width: 100px;
+            height: auto;
+            mix-blend-mode: multiply;
+        }
+
+        .programs-board {
+            background: rgba(20, 28, 20, 0.4);
+            border: 1px solid rgba(197, 160, 89, 0.3);
+            border-radius: 8px;
+            padding: 1.5rem;
+            width: 80%;
+            margin-bottom: auto;
+            z-index: 3;
+            backdrop-filter: blur(4px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+        }
+
+        /* The Desk / Slats */
+        .desk-area {
+            width: 100%;
+            margin-top: auto;
+            position: relative;
+        }
+
+        .desk-top {
+            height: 60px;
+            background-color: #1a1a1a;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding-right: 3rem;
+            box-sizing: border-box;
+            border-bottom: 3px solid rgba(197, 160, 89, 0.8);
+            box-shadow: 0 10px 30px rgba(197, 160, 89, 0.4);
+            z-index: 3;
+            position: relative;
+        }
+
+        .desk-welcome {
+            color: var(--nci-cream);
+            text-align: right;
+        }
+        .desk-welcome h4 {
+            margin: 0;
+            font-size: 1.4rem;
+            letter-spacing: 3px;
+        }
+        .desk-welcome p {
+            margin: 0;
+            font-size: 0.8rem;
+            color: var(--nci-gold);
+            letter-spacing: 2px;
+        }
+
+        .wood-slats {
+            height: 140px;
+            width: 100%;
+            background: repeating-linear-gradient(to right, 
+                #8b5a2b 0px, 
+                #8b5a2b 15px, 
+                #4a2e15 15px, 
+                #4a2e15 20px
+            );
+            position: relative;
+        }
+        
+        /* Floor shadow */
+        .wood-slats::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 25px;
+            background: linear-gradient(to top, rgba(0,0,0,0.6), transparent);
+        }
+
+        /* --- Column 3: The Signage / Back Cover (Outside Left) --- */
+        .col-signage {
+            background-color: var(--nci-cream);
+            border-right: 1px dashed rgba(0,0,0,0.2);
+            padding: 4rem 3rem;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+        
+        .col-signage::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 15px;
+            background-color: var(--nci-black);
+            box-shadow: 5px 0 15px rgba(0,0,0,0.2);
+        }
+
+        .sign-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: var(--nci-black);
+            letter-spacing: 2px;
+            padding-bottom: 1.5rem;
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid rgba(0,0,0,0.1);
+        }
+        
+        .sign-left {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .sign-icon {
+            color: var(--nci-green);
+            font-size: 1.5rem;
+            width: 35px;
+            text-align: center;
+        }
+
+        .contact-info-box {
+            margin-top: auto;
+            background-color: var(--nci-green);
+            color: var(--nci-white);
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        .contact-info-box div {
+            margin-bottom: 0.8rem;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .contact-info-box i {
+            color: var(--nci-gold);
+        }
+
+        /* --- Column 4: Front Cover (Outside Right) --- */
+        .col-cover {
+            background-color: var(--nci-green-dark);
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 4rem;
+            overflow: hidden;
+            text-align: center;
+        }
+        
+        .col-cover::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-image: url('assets/hero_coffee_realistic.png');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.4;
+            z-index: 1;
+        }
+
+        .cover-content {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: rgba(31, 43, 32, 0.7);
+            padding: 3rem;
+            border: 2px solid var(--nci-gold);
+            border-radius: 10px;
+            backdrop-filter: blur(5px);
+        }
+
+        .cover-logo {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: var(--nci-cream);
+            margin-bottom: 2rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+        .cover-logo img {
+            width: 160px;
+            height: auto;
+            mix-blend-mode: multiply;
+        }
+
+        .cover-title {
+            color: var(--nci-cream);
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2rem;
+            margin: 0 0 1rem 0;
+            font-style: italic;
+            line-height: 1.3;
+        }
+
+        .cover-subtitle {
+            color: var(--nci-gold);
+            font-size: 1rem;
+            letter-spacing: 4px;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+    </style>
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-D296Z1MSEE"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-D296Z1MSEE');
+    </script>
+</head>
+<body>
+
+    <!-- PAGE 1: INSIDE SPREAD -->
+    <div class="flyer-container">
+        
+        <!-- Column 1: Mission (Inside Left) -->
+        <div class="col-mission">
+            <div class="mission-title">
+                OUR MISSION <i class="fas fa-tint mission-icon"></i>
+            </div>
+            <div class="mission-text">
+                To empower the next generation of coffee professionals through world-class training, innovation and real coffee experiences.
+            </div>
+            
+            <div style="margin-top: 1rem;">
+                <h3 style="font-family: 'Playfair Display', serif; font-size: 1.5rem; margin: 0 0 1.5rem 0; color: var(--nci-green); font-style: italic;">The NCI Advantage</h3>
+                <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 1.2rem;">
+                    <li style="display: flex; align-items: flex-start; gap: 12px;">
+                        <i class="fas fa-certificate" style="color: var(--nci-gold); margin-top: 4px; font-size: 1.2rem;"></i>
+                        <div><strong style="color: var(--nci-black); display: block; font-size: 1.1rem; margin-bottom: 0.2rem;">SCA Certified Curriculum</strong><span style="font-size: 0.95rem; color: #555; line-height: 1.4; display: block;">Internationally recognized Specialty Coffee Association standards and certifications.</span></div>
+                    </li>
+                    <li style="display: flex; align-items: flex-start; gap: 12px;">
+                        <i class="fas fa-coffee" style="color: var(--nci-gold); margin-top: 4px; font-size: 1.2rem;"></i>
+                        <div><strong style="color: var(--nci-black); display: block; font-size: 1.1rem; margin-bottom: 0.2rem;">Hands-on Practical Training</strong><span style="font-size: 0.95rem; color: #555; line-height: 1.4; display: block;">Small class sizes ensuring personalized attention and maximum espresso machine time.</span></div>
+                    </li>
+                    <li style="display: flex; align-items: flex-start; gap: 12px;">
+                        <i class="fas fa-leaf" style="color: var(--nci-gold); margin-top: 4px; font-size: 1.2rem;"></i>
+                        <div><strong style="color: var(--nci-black); display: block; font-size: 1.1rem; margin-bottom: 0.2rem;">Farm-to-Cup Expertise</strong><span style="font-size: 0.95rem; color: #555; line-height: 1.4; display: block;">Comprehensive education covering farming, processing, roasting, and sensory analysis.</span></div>
+                    </li>
+                </ul>
+            </div>
+            <div style="margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid rgba(0,0,0,0.1);">
+                <h3 style="font-family: 'Montserrat', sans-serif; font-size: 0.85rem; letter-spacing: 2px; color: var(--nci-black); margin-bottom: 1rem;">PERFECT FOR:</h3>
+                <div style="display: flex; flex-wrap: wrap; gap: 8px;">
+                    <span style="background: #e8e4db; padding: 6px 12px; border-radius: 20px; font-size: 0.75rem; color: #444; font-weight: 700; letter-spacing: 1px;">ASPIRING BARISTAS</span>
+                    <span style="background: #e8e4db; padding: 6px 12px; border-radius: 20px; font-size: 0.75rem; color: #444; font-weight: 700; letter-spacing: 1px;">CAFE OWNERS</span>
+                    <span style="background: #e8e4db; padding: 6px 12px; border-radius: 20px; font-size: 0.75rem; color: #444; font-weight: 700; letter-spacing: 1px;">COFFEE FARMERS</span>
+                    <span style="background: #e8e4db; padding: 6px 12px; border-radius: 20px; font-size: 0.75rem; color: #444; font-weight: 700; letter-spacing: 1px;">COFFEE TRADERS</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Column 2: Feature Wall & Desk (Inside Right) -->
+        <div class="col-feature">
+            
+            <div class="hanging-light light-1"></div>
+            <div class="hanging-light light-2"></div>
+            <div class="hanging-light light-3"></div>
+
+            <div class="feature-logo-wrap">
+                <img src="tess.jpeg" alt="Nairobi Institute of Coffee Logo">
+            </div>
+
+            <div class="programs-board">
+                <h3 style="color: var(--nci-gold); font-family: 'Montserrat', sans-serif; font-size: 0.9rem; letter-spacing: 3px; margin: 0 0 1rem 0; text-align: center; border-bottom: 1px solid rgba(197, 160, 89, 0.2); padding-bottom: 0.5rem;">OUR CORE PROGRAMS</h3>
+                
+                <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.05); padding: 0.8rem 0;">
+                    <div>
+                        <div style="color: var(--nci-cream); font-weight: 700; font-size: 0.95rem;">SCA Foundation</div>
+                        <div style="color: #aaa; font-size: 0.75rem; margin-top: 0.2rem;">Intro to specialty coffee & espresso</div>
+                    </div>
+                    <div style="text-align: right;">
+                        <div style="color: var(--nci-gold); font-weight: 700; font-size: 0.9rem;">KES 32,500</div>
+                        <div style="color: #aaa; font-size: 0.75rem;">1 Week</div>
+                    </div>
+                </div>
+
+                <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.05); padding: 0.8rem 0;">
+                    <div>
+                        <div style="color: var(--nci-cream); font-weight: 700; font-size: 0.95rem;">SCA Intermediate</div>
+                        <div style="color: #aaa; font-size: 0.75rem; margin-top: 0.2rem;">Advanced extraction & latte art</div>
+                    </div>
+                    <div style="text-align: right;">
+                        <div style="color: var(--nci-gold); font-weight: 700; font-size: 0.9rem;">KES 58,500</div>
+                        <div style="color: #aaa; font-size: 0.75rem;">2 Weeks</div>
+                    </div>
+                </div>
+
+                <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.05); padding: 0.8rem 0;">
+                    <div>
+                        <div style="color: var(--nci-cream); font-weight: 700; font-size: 0.95rem;">SCA Professional</div>
+                        <div style="color: #aaa; font-size: 0.75rem; margin-top: 0.2rem;">Master coffee quality & management</div>
+                    </div>
+                    <div style="text-align: right;">
+                        <div style="color: var(--nci-gold); font-weight: 700; font-size: 0.9rem;">KES 91,500</div>
+                        <div style="color: #aaa; font-size: 0.75rem;">8 Weeks</div>
+                    </div>
+                </div>
+
+                <div style="display: flex; justify-content: space-between; align-items: center; padding-top: 0.8rem;">
+                    <div>
+                        <div style="color: var(--nci-cream); font-weight: 700; font-size: 0.95rem;">Local Coffee Pro</div>
+                        <div style="color: #aaa; font-size: 0.75rem; margin-top: 0.2rem;">Farm-to-Cup comprehensive course</div>
+                    </div>
+                    <div style="text-align: right;">
+                        <div style="color: var(--nci-gold); font-weight: 700; font-size: 0.9rem;">KES 60,000</div>
+                        <div style="color: #aaa; font-size: 0.75rem;">5 Weeks</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="desk-area">
+                <div class="desk-top">
+                    <div class="desk-welcome">
+                        <h4>KARIBU</h4>
+                        <p>WELCOME TO EXCELLENCE</p>
+                    </div>
+                </div>
+                <div class="wood-slats"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- PAGE 2: OUTSIDE SPREAD -->
+    <div class="flyer-container" style="page-break-before: always; margin-top: 2rem;">
+        
+        <!-- Column 1: Signage / Back Cover (Outside Left) -->
+        <div class="col-signage">
+            <h2 style="font-family: 'Playfair Display', serif; font-size: 2rem; color: var(--nci-green); margin-top: 0; margin-bottom: 1rem;">Building Coffee Careers</h2>
+            <p style="font-size: 1.05rem; color: var(--nci-text); line-height: 1.6; margin-bottom: 2rem; font-weight: 500;">
+                Whether you are an aspiring barista, a coffee shop owner, or a passionate enthusiast, Nairobi Institute of Coffee offers tailored programs designed to elevate your skills to a global standard.
+            </p>
+
+            <h3 style="font-family: 'Montserrat', sans-serif; font-size: 0.9rem; letter-spacing: 3px; color: var(--nci-gold); margin-bottom: 1rem; margin-top: 0;">OUR SPACES</h3>
+            
+            <div class="sign-item">
+                <div class="sign-left"><i class="fas fa-graduation-cap sign-icon"></i> TRAINING LAB</div>
+                <i class="fas fa-arrow-right sign-arrow"></i>
+            </div>
+            <div class="sign-item">
+                <div class="sign-left"><i class="fas fa-mug-hot sign-icon"></i> CAFÉ</div>
+                <i class="fas fa-arrow-right sign-arrow"></i>
+            </div>
+            <div class="sign-item">
+                <div class="sign-left"><i class="fas fa-fire sign-icon"></i> ROASTING ROOM</div>
+                <i class="fas fa-arrow-right sign-arrow"></i>
+            </div>
+            <div class="sign-item">
+                <div class="sign-left"><i class="fas fa-chalkboard-teacher sign-icon"></i> CLASSROOMS</div>
+                <i class="fas fa-arrow-right sign-arrow"></i>
+            </div>
+            
+            <div class="contact-info-box">
+                <div style="font-family: 'Montserrat', sans-serif; font-size: 1.1rem; font-weight: 700; margin-bottom: 1.5rem; letter-spacing: 1px; color: var(--nci-gold);">
+                    GET IN TOUCH
+                </div>
+                <div><i class="fas fa-map-marker-alt"></i> <span style="color:white;">Westlands, Nairobi</span></div>
+                <div><i class="fas fa-phone-alt"></i> <span style="color:white;">+254 725 446295</span></div>
+                <div><i class="fas fa-envelope"></i> <span style="color:white;">info@nairobiinstituteofcoffee.co.ke</span></div>
+                <div><i class="fas fa-globe"></i> <span style="color:white;">www.nairobiinstituteofcoffee.co.ke</span></div>
+            </div>
+        </div>
+
+        <!-- Column 2: Front Cover (Outside Right) -->
+        <div class="col-cover">
+            <div class="cover-content">
+                <div class="cover-logo">
+                    <img src="tess.jpeg" alt="Nairobi Institute of Coffee">
+                </div>
+                
+                <h1 class="cover-title">Elevating The<br>Kenyan Coffee<br>Experience</h1>
+                
+                <div style="width: 60px; height: 3px; background-color: var(--nci-gold); margin: 2rem 0;"></div>
+                
+                <div class="cover-subtitle">Professional Barista Training</div>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html>

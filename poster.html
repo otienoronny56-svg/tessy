@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nairobi Institute of Coffee | Poster</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500;1,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --nci-green: #2a3b2c;
+            --nci-green-dark: #151e16;
+            --nci-gold: #c5a059;
+            --nci-cream: #f4f1ea;
+            --nci-white: #ffffff;
+        }
+
+        body {
+            margin: 0;
+            padding: 3rem 0;
+            background-color: #d0d0d0;
+            display: flex;
+            justify-content: center;
+            font-family: 'Montserrat', sans-serif;
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+        }
+
+        /* Print Styles for A6 Portrait */
+        @media print {
+            @page {
+                size: A6 portrait; /* 105mm x 148.5mm */
+                margin: 0;
+            }
+            body {
+                margin: 0;
+                padding: 0;
+                background-color: transparent;
+            }
+            .poster-container {
+                width: 105mm !important;
+                height: 148.5mm !important;
+                margin: 0 !important;
+                box-shadow: none !important;
+                border: none !important;
+                page-break-after: always;
+                page-break-inside: avoid;
+            }
+        }
+
+        /* The Poster Canvas (A6 Proportions) */
+        .poster-container {
+            width: 105mm;
+            height: 148.5mm;
+            background-color: var(--nci-green-dark);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1.5rem 1.2rem;
+            box-sizing: border-box;
+            text-align: center;
+        }
+
+        /* Full Background Image with deep moody overlay */
+        .poster-bg {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-image: url('assets/hero_coffee_realistic.png');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.25;
+            z-index: 1;
+        }
+        
+        .poster-bg-gradient {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(to bottom, rgba(21,30,22,0.6) 0%, rgba(21,30,22,0.95) 50%, rgba(21,30,22,1) 100%);
+            z-index: 2;
+        }
+
+        /* Content Wrapper to sit above the backgrounds */
+        .content-wrapper {
+            position: relative;
+            z-index: 3;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        /* --- TOP: Header & Logo --- */
+        .poster-header {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 0.5rem;
+        }
+
+        .poster-logo {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background-color: var(--nci-cream);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 0.8rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+            border: 1px solid rgba(197, 160, 89, 0.3);
+        }
+        
+        .poster-logo img {
+            width: 45px;
+            height: auto;
+            mix-blend-mode: multiply;
+        }
+
+        .institute-name {
+            font-size: 0.5rem;
+            letter-spacing: 2px;
+            color: var(--nci-gold);
+            margin: 0 0 0.5rem 0;
+            font-weight: 700;
+        }
+
+        .main-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.6rem;
+            color: var(--nci-cream);
+            margin: 0;
+            line-height: 1.1;
+            font-style: italic;
+            font-weight: 700;
+            text-shadow: 0 5px 10px rgba(0,0,0,0.5);
+        }
+
+        .title-separator {
+            width: 30px;
+            height: 2px;
+            background-color: var(--nci-gold);
+            margin: 0.8rem auto;
+        }
+
+        .subtitle {
+            font-size: 0.5rem;
+            letter-spacing: 1px;
+            color: #aaaaaa;
+            margin: 0;
+            font-weight: 500;
+        }
+
+        /* --- MIDDLE: The Programs Grid --- */
+        .programs-area {
+            width: 100%;
+            margin: 0 auto;
+        }
+
+        .programs-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.8rem;
+        }
+
+        .prog-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(197, 160, 89, 0.2);
+            border-radius: 8px;
+            padding: 0.8rem;
+            backdrop-filter: blur(10px);
+            text-align: left;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .prog-card::before {
+            content: '';
+            position: absolute;
+            left: 0; top: 0; bottom: 0; width: 3px;
+            background: var(--nci-gold);
+        }
+
+        .prog-icon {
+            font-size: 0.9rem;
+            color: var(--nci-gold);
+            margin-bottom: 0.5rem;
+            opacity: 0.8;
+        }
+
+        .prog-title {
+            color: var(--nci-cream);
+            font-family: 'Playfair Display', serif;
+            font-size: 0.85rem;
+            margin: 0 0 0.4rem 0;
+        }
+
+        .prog-desc {
+            color: #a0a0a0;
+            font-size: 0.45rem;
+            line-height: 1.4;
+            margin: 0 0 0.8rem 0;
+            font-weight: 400;
+        }
+
+        .prog-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            padding-top: 0.5rem;
+        }
+
+        .prog-duration {
+            color: var(--nci-gold);
+            font-weight: 700;
+            font-size: 0.4rem;
+            letter-spacing: 1px;
+        }
+
+        .prog-price {
+            color: var(--nci-white);
+            font-weight: 800;
+            font-size: 0.6rem;
+        }
+
+        /* --- BOTTOM: Call to Action & Footer --- */
+        .poster-footer {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 0.5rem;
+        }
+
+        .cta-badge {
+            background-color: var(--nci-gold);
+            color: var(--nci-green-dark);
+            padding: 0.5rem 1.5rem;
+            border-radius: 50px;
+            font-weight: 800;
+            font-size: 0.6rem;
+            letter-spacing: 1px;
+            margin-bottom: 1.2rem;
+            box-shadow: 0 5px 10px rgba(197, 160, 89, 0.3);
+            display: inline-block;
+        }
+
+        .contact-row {
+            display: flex;
+            justify-content: space-around;
+            width: 100%;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding-top: 0.8rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            color: var(--nci-cream);
+            font-size: 0.45rem;
+            font-weight: 500;
+        }
+
+        .contact-item i {
+            color: var(--nci-gold);
+            font-size: 0.55rem;
+        }
+
+    </style>
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-D296Z1MSEE"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-D296Z1MSEE');
+    </script>
+</head>
+<body>
+
+    <div class="poster-container">
+        
+        <!-- Backgrounds -->
+        <div class="poster-bg"></div>
+        <div class="poster-bg-gradient"></div>
+
+        <!-- Foreground Content -->
+        <div class="content-wrapper">
+            
+            <!-- Header section -->
+            <div class="poster-header">
+                <div class="poster-logo">
+                    <img src="tess.jpeg" alt="Logo">
+                </div>
+                <h2 class="institute-name">NAIROBI INSTITUTE OF COFFEE</h2>
+                <h1 class="main-title">Master The Art<br>Of Specialty Coffee</h1>
+                <div class="title-separator"></div>
+                <p class="subtitle">INTERNATIONALLY RECOGNIZED BARISTA TRAINING</p>
+            </div>
+
+            <!-- Programs Grid section -->
+            <div class="programs-area">
+                <div class="programs-grid">
+                    
+                    <!-- Card 1 -->
+                    <div class="prog-card">
+                        <div class="prog-icon"><i class="fas fa-seedling"></i></div>
+                        <h3 class="prog-title">SCA Foundation</h3>
+                        <p class="prog-desc">Learn the fundamentals of specialty coffee, professional espresso preparation, and essential sensory basics.</p>
+                        <div class="prog-footer">
+                            <div class="prog-duration">1 WEEK</div>
+                            <div class="prog-price">KES 32,500</div>
+                        </div>
+                    </div>
+
+                    <!-- Card 2 -->
+                    <div class="prog-card">
+                        <div class="prog-icon"><i class="fas fa-mug-hot"></i></div>
+                        <h3 class="prog-title">SCA Intermediate</h3>
+                        <p class="prog-desc">Build advanced skills in espresso extraction dialing, precise brewing methods, and professional latte art.</p>
+                        <div class="prog-footer">
+                            <div class="prog-duration">2 WEEKS</div>
+                            <div class="prog-price">KES 58,500</div>
+                        </div>
+                    </div>
+
+                    <!-- Card 3 -->
+                    <div class="prog-card">
+                        <div class="prog-icon"><i class="fas fa-medal"></i></div>
+                        <h3 class="prog-title">SCA Professional</h3>
+                        <p class="prog-desc">Master coffee quality evaluation, advanced sensory skills, roasting fundamentals, and coffee business management.</p>
+                        <div class="prog-footer">
+                            <div class="prog-duration">8 WEEKS</div>
+                            <div class="prog-price">KES 91,500</div>
+                        </div>
+                    </div>
+
+                    <!-- Card 4 -->
+                    <div class="prog-card">
+                        <div class="prog-icon"><i class="fas fa-globe-africa"></i></div>
+                        <h3 class="prog-title">Local Coffee Pro</h3>
+                        <p class="prog-desc">Our flagship Farm-to-Cup comprehensive bootcamp covering the entire coffee supply chain from origin to extraction.</p>
+                        <div class="prog-footer">
+                            <div class="prog-duration">5 WEEKS</div>
+                            <div class="prog-price">KES 60,000</div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Footer section -->
+            <div class="poster-footer">
+                <div class="cta-badge">ENROLL TODAY</div>
+                
+                <div class="contact-row">
+                    <div class="contact-item">
+                        <i class="fas fa-map-marker-alt"></i> Westlands, Nairobi
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-phone-alt"></i> +254 725 446295
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-globe"></i> nairobiinstituteofcoffee.co.ke
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</body>
+</html>
