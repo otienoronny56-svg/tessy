@@ -133,7 +133,7 @@ img {
 }
 
 .section-padding {
-    padding: 8rem 0;
+    padding: 4rem 0;
 }
 
 /* Glassmorphism */
@@ -250,7 +250,7 @@ img {
     left: 0;
     width: 100%;
     z-index: 10000;
-    padding: 1rem 0;
+    padding: 0.5rem 0;
     transition: var(--transition);
     background: rgba(247, 243, 239, 0.8); /* Permanent frosted background */
     backdrop-filter: blur(10px);
@@ -259,7 +259,7 @@ img {
 }
 
 #navbar.scrolled {
-    padding: 0.8rem 0;
+    padding: 0.4rem 0;
     background: rgba(247, 243, 239, 0.98);
     box-shadow: 0 10px 40px rgba(0,0,0,0.08);
 }
@@ -271,7 +271,7 @@ img {
 }
 
 .logo-container img {
-    height: 80px;
+    height: 50px;
     width: auto;
     border-radius: 8px;
     transition: var(--transition);
@@ -280,7 +280,7 @@ img {
 
 @media (max-width: 768px) {
     .logo-container img {
-        height: 55px;
+        height: 40px;
     }
 }
 
@@ -374,12 +374,12 @@ img {
 
 /* Hero Section */
 .hero {
-    min-height: 100vh;
+    min-height: 80vh;
     display: flex;
     align-items: center;
     position: relative;
     overflow: hidden;
-    padding-top: 120px; /* Space for fixed navbar */
+    padding-top: 100px; /* Space for fixed navbar */
     background: radial-gradient(circle at 80% 20%, rgba(220, 168, 66, 0.15) 0%, transparent 60%),
                 radial-gradient(circle at 10% 80%, rgba(231, 111, 81, 0.1) 0%, transparent 50%),
                 var(--bg-deep);
@@ -576,7 +576,7 @@ img {
 /* Mobile Responsive */
 @media (max-width: 768px) {
     :root {
-        --section-padding: 4rem 0;
+        --section-padding: 2rem 0;
     }
 
     .section-padding {
@@ -1140,7 +1140,7 @@ img {
         padding: 0 1.5rem;
     }
     .section-padding {
-        padding: 4rem 0;
+        padding: 2rem 0;
     }
     
     /* Typography */
@@ -1949,7 +1949,7 @@ img {
 
     /* Snug, professional layout padding for mobile screens */
     .section-padding {
-        padding: 3.5rem 0 !important;
+        padding: 2rem 0 !important;
     }
 
     /* Elite subpage spacing: tightens space between header and main content */
